@@ -1,10 +1,10 @@
-*Atualmente existem ótimos Frameworks no mercado que estão bem encaminhados, e além disso existem milhares de Frameworks, então, para que reinventar a roda?
-R.:* Esta é uma pergunta que acredito que se passa pela cabeça de muitas pessoas, porém, ao mesmo tempo acredito que se passa a vontade de ter algo melhor, pois se isso não fosse verdade, as pessoas que discordam da idéia de um novo Framework, não iriam apontar necessidades que deveriam ser melhor atendidas pelos atuais Frameworks.
+*Atualmente existem ótimos Frameworks no mercado que estão bem encaminhados, e além disso existem milhares de Frameworks, então, para que reinventar a roda?*
+*R.:* Esta é uma pergunta que acredito que se passa pela cabeça de muitas pessoas, porém, ao mesmo tempo acredito que se passa a vontade de ter algo melhor, pois se isso não fosse verdade, as pessoas que discordam da idéia de um novo Framework, não iriam apontar necessidades que deveriam ser melhor atendidas pelos atuais Frameworks.
 Concordo sim, que existem muitos Frameworks atualmente, e acho normal que alguns desenvolvedores achem que seria melhor ajudar no desenvolvimento de algum Framework já existente para não se perder o foco e auxiliar na evolução do PHP e de sua comunidade.
 Porém, vejo que um novo Framework pode sim, se tiver um projeto bem elaborado, pode fazer o PHP evoluir mais, se este for um dos focos do projeto, o que é o caso do Oraculum Framework.
 
-*Qual o significado de Oraculum? Não seria uma cópia de um nome de outra empresa só alterado um pouco?
-R.:* Oraculum significa Oráculo em Latim, em nenhum momento houve a intenção de se basear em nome já existente e registrado.
+*Qual o significado de Oraculum? Não seria uma cópia de um nome de outra empresa só alterado um pouco?*
+*R.:* Oraculum significa Oráculo em Latim, em nenhum momento houve a intenção de se basear em nome já existente e registrado.
 Desde antes de surgir a idéia do nome Oraculum, optou-se por dar um nome em Latim para o Framework, pois é uma língua que deu origem a vários idiomas e que merece o seu respeito.
 Somente a título de curiosidade, além de Oraculum Framework, houveram outras idéias:
 - Dreams Framework
@@ -12,18 +12,18 @@ Somente a título de curiosidade, além de Oraculum Framework, houveram outras i
 - Solum Framework
 - Imperium Framework
 
-*Como posso utilizar o Oraculum Framework, sem ter a certeza de por quanto tempo o projeto evoluirá?
-R.:* Esta pergunta é uma das mais importantes, muitos levam isso em conta ao adotar um Framework. A resposta para ela é bem simples no caso do Oraculum: Enquanto tiverem pessoas utilizando, deverá haver uma comunidade de usuários, e como em um Framework o usuário final é um programador, suas necessidades podem ser levadas a essas comunidades que por si só podem fazer o projeto evoluir, e muito. Esse é um dos focos do Oraculum Framework, dar a liberdade e incentivar a sua comunidade para que façam com que a força do PHP seja mostrada.
+*Como posso utilizar o Oraculum Framework, sem ter a certeza de por quanto tempo o projeto evoluirá?*
+*R.:* Esta pergunta é uma das mais importantes, muitos levam isso em conta ao adotar um Framework. A resposta para ela é bem simples no caso do Oraculum: Enquanto tiverem pessoas utilizando, deverá haver uma comunidade de usuários, e como em um Framework o usuário final é um programador, suas necessidades podem ser levadas a essas comunidades que por si só podem fazer o projeto evoluir, e muito. Esse é um dos focos do Oraculum Framework, dar a liberdade e incentivar a sua comunidade para que façam com que a força do PHP seja mostrada.
 
-*Por que não há a utilização de singleton, herança e outras implementações existentes na Orientação a Objetos neste framework?
-R.:* Simplesmente porque não houve a necessidade (ainda). Caso ache o contrário, sinta-se a vontade para entrar em contato dando algumas dicas, ou para auxiliar a evolução do projeto, dando utilidade a implementação dessses princípios da Orientação a Objetos. Sua ajuda é muito importante para a evolução do Oraculum Framework, e para a evolução do uso do PHP.
+*Por que não há a utilização de singleton, herança e outras implementações existentes na Orientação a Objetos neste framework?*
+*R.:* Simplesmente porque não houve a necessidade (ainda). Caso ache o contrário, sinta-se a vontade para entrar em contato dando algumas dicas, ou para auxiliar a evolução do projeto, dando utilidade a implementação dessses princípios da Orientação a Objetos. Sua ajuda é muito importante para a evolução do Oraculum Framework, e para a evolução do uso do PHP.
 
-*Existe ferramentas de templates HTML que são bem conhecidas? Por que não são utilizadas no Framework?
-R.:* Porque um dos focos do Oraculum Framework é a simplicidade. HTML é um padrão universal adotado na internet, e quem sabe trabalhar com uma ferramenta de templates HTML sabe trabalhar com HTML, já o contrário não é verdadeiro. Por esse fato, no Oraculum Framework, foi optado por manter o HTML como base para a camada de visualização, no lugar de uma ferramenta de templates.
+*Existe ferramentas de templates HTML que são bem conhecidas? Por que não são utilizadas no Framework?*
+*R.:* Porque um dos focos do Oraculum Framework é a simplicidade. HTML é um padrão universal adotado na internet, e quem sabe trabalhar com uma ferramenta de templates HTML sabe trabalhar com HTML, já o contrário não é verdadeiro. Por esse fato, no Oraculum Framework, foi optado por manter o HTML como base para a camada de visualização, no lugar de uma ferramenta de templates.
 Porém, no futuro algumas coisas podem ser automatizadas na geração do HTML para atender a necessidade que alguns usuários eventualmente terão.
 
-*Porque o scaffolding (gerador de códigos) deste framework é tão limitado, gerando apenas as classes da camada de modelo?
-R.:* Pelo simples fato de que no momento apenas existe uma interface Web para a criação das classes através do Doctrine ORM. No momento não há nada mais avançado do que isso, pelo simples fato de que uma ferramenta mais completa está sendo desenvolvida e esta por si só deverá responder esta pergunta e justificá-la...
+*Porque o scaffolding (gerador de códigos) deste framework é tão limitado, gerando apenas as classes da camada de modelo?*
+*R.:* Pelo simples fato de que no momento apenas existe uma interface Web para a criação das classes através do Doctrine ORM. No momento não há nada mais avançado do que isso, pelo simples fato de que uma ferramenta mais completa está sendo desenvolvida e esta por si só deverá responder esta pergunta e justificá-la...
 
 *Porque foi optado o uso do Doctrine ORM neste Framework para ele sozinho cuidar da camada de modelo?
 R.:* Pelo simples fato de que o Doctrine ORM é uma ferramenta muito útil e muito utilizada por desenvolvedores para ser acopladas em frameworks e lhe garantirem uma melhor abstração. Já no Oraculum Framework foi optado por fazer do Doctrine ORM uma parte necessária para seu funcionamento. Porém, em um futuro talvez não muito distante, ocorra a criação de um ORM próprio do Oraculum Framework, porém, para apenas servir de alternativa ao Doctrine ORM, por questões práticas, como padronização de códigos.
