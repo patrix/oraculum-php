@@ -3,7 +3,7 @@ Para obter o *Oraculum Framework* basta realizar o download da última versão e
 Atualmente o mesmo está disponível no endereço http://code.google.com/p/oraculum-php/. 
 
 Os requisitos para instalar e utilizar o *Oraculum Framework* são os seguintes:
-  * ServidorWeb preferencialmente Apache 2 ou superior.
+  * Servidor Web preferencialmente Apache 2 ou superior.
   * PHP5 ou superior.
   * Recomenda-se habilitar a opção de reescrita de URL no Apache, porém, os testes com a mesma desabilitada foram bem sucedidos.
   * Sistema Operacional Windows ou Linux. Ainda não foram realizados testes em outras plataformas como Mac OS.
