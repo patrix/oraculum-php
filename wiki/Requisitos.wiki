@@ -1,7 +1,0 @@
-Para você utilizar o Oraculum Framework, você deve possuir:
-
-  * PHP5 ou superior
-  * Um servidor Web instalado (preferencialmente Apache2 ou superior)
-  * Reescrita de URL habilitada (apenas recomendável)
-  * Permissão de escrita nas pastas /tmp e /logs
-  * Sistema Operacional Windows ou Linux (Ainda não foram realizados testes em Mac)
