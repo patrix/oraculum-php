@@ -9,10 +9,10 @@ Porém, vejo que um novo Framework pode sim, se tiver um projeto bem elaborado, 
 *R.:* Oraculum significa Oráculo em Latim, em nenhum momento houve a intenção de se basear em nome já existente e registrado.
 Desde antes de surgir a idéia do nome Oraculum, optou-se por dar um nome em Latim para o Framework, pois é uma língua que deu origem a vários idiomas e que merece o seu respeito.
 Somente a título de curiosidade, além de Oraculum Framework, houveram outras idéias:
-- Dreams Framework
-- Aqua Framework
-- Solum Framework
-- Imperium Framework
+ * Dreams Framework
+ * Aqua Framework
+ * Solum Framework
+ * Imperium Framework
 
 *Como posso utilizar o Oraculum Framework, sem ter a certeza de por quanto tempo o projeto evoluirá?*
 
