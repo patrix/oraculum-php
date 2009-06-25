@@ -33,20 +33,20 @@ Porém, no futuro algumas coisas podem ser automatizadas na geração do HTML pa
 
 *O que significa estes símbolos cheios de traços na logo do Oraculum Framework?*
 
-R.:* Este é um símbolo do I Ching, um dos mais antigos e seguidos oráculos asiáticos, a forma mais simples de você entender o que significa estes símbolos, é você buscar o conhecimento para compreender um pouco do todo que se esconde por trás dos conceitos de uma das várias filosofias que existem no universo.
+*R.:* Este é um símbolo do I Ching, um dos mais antigos e seguidos oráculos asiáticos, a forma mais simples de você entender o que significa estes símbolos, é você buscar o conhecimento para compreender um pouco do todo que se esconde por trás dos conceitos de uma das várias filosofias que existem no universo.
 
 *Por que eu devo utilizar um Framework?*
 
-R.:* Porque utilizar um Framework é algo complicado, mas que se você souber utilizar, essa complicação pode se transformar em um descomplicador de problemas no futuro. Utilizando um Framework você adota uma nova visão na hora de desenvolver, é como se ao invés de você ficasse falando para alguém montar algo, você mesmo fosse pegando as peças e montando o seu quebra-cabeças.
+*R.:* Porque utilizar um Framework é algo complicado, mas que se você souber utilizar, essa complicação pode se transformar em um descomplicador de problemas no futuro. Utilizando um Framework você adota uma nova visão na hora de desenvolver, é como se ao invés de você ficasse falando para alguém montar algo, você mesmo fosse pegando as peças e montando o seu quebra-cabeças.
 
 *Por que devo utilizar o Oraculum?*
 
-R.:* Uma das respostas que melhor responderia esta pergunta seria: Porque o Oraculum não é apenas mais uma pilha de classes e funções.
+*R.:* Uma das respostas que melhor responderia esta pergunta seria: Porque o Oraculum não é apenas mais uma pilha de classes e funções.
 O Oraculum se trata de uma nova filosofia, um novo paradigma de desenvolvimento. Desde a escolha do nome, da logo, do funcionamento; foi optado por dar um significado maior à sua existência. Desta forma, quem optar por utilizá-lo, estará utilizando uma ferramenta com utilidades e significados. Se o desenvolvedor der valor a tudo o que dispõe, não haverá limites para o que a sua imaginação exigir que seja desenvolvido.
 
 *Tá, mas e o que o Oraculum tem que é melhor que os outros?*
 
-R.:* Muita coisa, ou pouca coisa. O que é melhor pra um pode não ser melhor para outro. Mas, um dos diferenciais do Oraculum, é que há uma preocupação em procurar o que é melhor para a maioria.
+*R.:* Muita coisa, ou pouca coisa. O que é melhor pra um pode não ser melhor para outro. Mas, um dos diferenciais do Oraculum, é que há uma preocupação em procurar o que é melhor para a maioria.
 Atualmente o que mais foi identificado que seria importante melhorar em comparação a outros Frameworks está listado abaixo:
  * Documentação
  * Segurança
