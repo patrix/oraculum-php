@@ -38,10 +38,10 @@ O Oraculum se trata de uma nova filosofia, um novo paradigma de desenvolvimento.
 *Tá, mas e o que o Oraculum tem que é melhor que os outros?
 R.:* Muita coisa, ou pouca coisa. O que é melhor pra um pode não ser melhor para outro. Mas, um dos diferenciais do Oraculum, é que há uma preocupação em procurar o que é melhor para a maioria.
 Atualmente o que mais foi identificado que seria importante melhorar em comparação a outros Frameworks está listado abaixo:
-- Documentação
-- Segurança
-- Internacionalização
-- Ajax
-- Scaffolding
+ * Documentação
+ * Segurança
+ * Internacionalização
+ * Ajax
+ * Scaffolding
 Por isso esses itens estão sendo analisados com maior cuidado.
 Cabe a você decidir se o Oraculum Framework é a melhor opção para o seu projeto.
