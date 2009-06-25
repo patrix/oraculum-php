@@ -29,7 +29,7 @@ Porém, no futuro algumas coisas podem ser automatizadas na geração do HTML pa
 
 *Porque foi optado o uso do Doctrine ORM neste Framework para ele sozinho cuidar da camada de modelo?*
 
-R.:* Pelo simples fato de que o Doctrine ORM é uma ferramenta muito útil e muito utilizada por desenvolvedores para ser acopladas em frameworks e lhe garantirem uma melhor abstração. Já no Oraculum Framework foi optado por fazer do Doctrine ORM uma parte necessária para seu funcionamento. Porém, em um futuro talvez não muito distante, ocorra a criação de um ORM próprio do Oraculum Framework, porém, para apenas servir de alternativa ao Doctrine ORM, por questões práticas, como padronização de códigos.
+*R.:* Pelo simples fato de que o Doctrine ORM é uma ferramenta muito útil e muito utilizada por desenvolvedores para ser acopladas em frameworks e lhe garantirem uma melhor abstração. Já no Oraculum Framework foi optado por fazer do Doctrine ORM uma parte necessária para seu funcionamento. Porém, em um futuro talvez não muito distante, ocorra a criação de um ORM próprio do Oraculum Framework, porém, para apenas servir de alternativa ao Doctrine ORM, por questões práticas, como padronização de códigos.
 
 *O que significa estes símbolos cheios de traços na logo do Oraculum Framework?*
 
