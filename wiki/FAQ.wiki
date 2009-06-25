@@ -1,4 +1,5 @@
 *Atualmente existem ótimos Frameworks no mercado que estão bem encaminhados, e além disso existem milhares de Frameworks, então, para que reinventar a roda?*
+
 *R.:* Esta é uma pergunta que acredito que se passa pela cabeça de muitas pessoas, porém, ao mesmo tempo acredito que se passa a vontade de ter algo melhor, pois se isso não fosse verdade, as pessoas que discordam da idéia de um novo Framework, não iriam apontar necessidades que deveriam ser melhor atendidas pelos atuais Frameworks.
 Concordo sim, que existem muitos Frameworks atualmente, e acho normal que alguns desenvolvedores achem que seria melhor ajudar no desenvolvimento de algum Framework já existente para não se perder o foco e auxiliar na evolução do PHP e de sua comunidade.
 Porém, vejo que um novo Framework pode sim, se tiver um projeto bem elaborado, pode fazer o PHP evoluir mais, se este for um dos focos do projeto, o que é o caso do Oraculum Framework.
