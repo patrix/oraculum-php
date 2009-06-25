@@ -18,7 +18,7 @@ Somente a título de curiosidade, além de Oraculum Framework, houveram outras i
 
 *R.:* Esta pergunta é uma das mais importantes, muitos levam isso em conta ao adotar um Framework. A resposta para ela é bem simples no caso do Oraculum: Enquanto tiverem pessoas utilizando, deverá haver uma comunidade de usuários, e como em um Framework o usuário final é um programador, suas necessidades podem ser levadas a essas comunidades que por si só podem fazer o projeto evoluir, e muito. Esse é um dos focos do Oraculum Framework, dar a liberdade e incentivar a sua comunidade para que façam com que a força do PHP seja mostrada.
 
-*Por que não há a utilização de singleton, herança e outras implementações existentes na Orientação a Objetos neste framework?*
+*Por que não há a utilização constante de singleton, herança e outras implementações existentes na Orientação a Objetos neste framework?*
 
 *R.:* Simplesmente porque não houve a necessidade (ainda). Caso ache o contrário, sinta-se a vontade para entrar em contato dando algumas dicas, ou para auxiliar a evolução do projeto, dando utilidade a implementação dessses princípios da Orientação a Objetos. Sua ajuda é muito importante para a evolução do Oraculum Framework, e para a evolução do uso do PHP.
 
