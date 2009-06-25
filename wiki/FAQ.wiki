@@ -22,9 +22,6 @@ Somente a título de curiosidade, além de Oraculum Framework, houveram outras i
 *R.:* Porque um dos focos do Oraculum Framework é a simplicidade. HTML é um padrão universal adotado na internet, e quem sabe trabalhar com uma ferramenta de templates HTML sabe trabalhar com HTML, já o contrário não é verdadeiro. Por esse fato, no Oraculum Framework, foi optado por manter o HTML como base para a camada de visualização, no lugar de uma ferramenta de templates.
 Porém, no futuro algumas coisas podem ser automatizadas na geração do HTML para atender a necessidade que alguns usuários eventualmente terão.
 
-*Porque o scaffolding (gerador de códigos) deste framework é tão limitado, gerando apenas as classes da camada de modelo?*
-*R.:* Pelo simples fato de que no momento apenas existe uma interface Web para a criação das classes através do Doctrine ORM. No momento não há nada mais avançado do que isso, pelo simples fato de que uma ferramenta mais completa está sendo desenvolvida e esta por si só deverá responder esta pergunta e justificá-la...
-
 *Porque foi optado o uso do Doctrine ORM neste Framework para ele sozinho cuidar da camada de modelo?
 R.:* Pelo simples fato de que o Doctrine ORM é uma ferramenta muito útil e muito utilizada por desenvolvedores para ser acopladas em frameworks e lhe garantirem uma melhor abstração. Já no Oraculum Framework foi optado por fazer do Doctrine ORM uma parte necessária para seu funcionamento. Porém, em um futuro talvez não muito distante, ocorra a criação de um ORM próprio do Oraculum Framework, porém, para apenas servir de alternativa ao Doctrine ORM, por questões práticas, como padronização de códigos.
 
