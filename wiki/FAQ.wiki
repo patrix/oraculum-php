@@ -44,3 +44,4 @@ Atualmente o que mais foi identificado que seria importante melhorar em compara�
 - Ajax
 - Scaffolding
 Por isso esses itens estão sendo analisados com maior cuidado.
+Cabe a você decidir se o Oraculum Framework é a melhor opção para o seu projeto.
