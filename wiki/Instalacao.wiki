@@ -30,8 +30,7 @@ As configurações básicas que devem ser realizadas são as seguintes
 </IfModule>
 }}}
 *Exemplo:*
-Se para acessar o seu site você digita _http://localhost/projetos/teste/_ na barra de endereços
-_RewriteBase_ será /projetos/teste/_
+Se para acessar o seu site você digita _http://localhost/projetos/teste/_ na barra de endereços RewriteBase será /projetos/teste/_
 
  * Se você possui uma conexão com banco de dados, copie o arquivo _/models/doctrine/config.php_ para _/models/doctrine/*NOME-DO-PROJETO*.php_
 Altere a linha 46 deste arquivo criado, com as configurações de conexão à sua base de dados.
