@@ -17,7 +17,8 @@ Se ocorreu tudo corretamente, você pode acessar o sistema gerador de códigos, 
 == Configurações ==
 As configurações básicas que devem ser realizadas são as seguintes
  * Alterar o parâmetro RewriteBase do arquivo *.htaccess* para a URL que é chamada
-{{{<IfModule mod_rewrite.c>
+{{{
+<IfModule mod_rewrite.c>
   RewriteEngine On
   # Determina a base de reescrita
   RewriteBase /
@@ -26,7 +27,8 @@ As configurações básicas que devem ser realizadas são as seguintes
   # Verifica se a url nao corresponde a um diretorio existente
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule .([a-zA-Z0-9]+)?$ index.php
-</IfModule>}}}
+</IfModule>
+}}}
 *Exemplo:*
 Se para acessar o seu site você digita _http://localhost/projetos/teste/_ na barra de endereços
 _RewriteBase será /projetos/teste/_
