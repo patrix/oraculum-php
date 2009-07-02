@@ -1,5 +1,5 @@
 #labels Phase-Requirements
-=Deficiências encontradas na versão Alpha=
+=Deficiências encontradas na versão 0.1 Alpha do Oraculum=
 ===Estas deficiências devem ser atendidas nas próximas versões do Oraculum Framework===
 
 == Scaffolding ==
