@@ -1,0 +1,18 @@
+#Deficiências encontradas na versão Alpha e que devem ser atendidas na versão beta
+
+== Scaffolding ==
+ * Atualmente há a necessidade de a chave primária das entidades ser um atributo de nome "codigo". Caso contrário, os sistemas gerados não funcionarão corretamente.
+ * Atualmente os relacionamentos com chaves estrangeiras funcionam, porém, não há uma validação desses campos, assim como não é gerado um campo para selecionar o registro correspondente, apenas é exibido um campo para informar o código. Isto deve ser implementado nas próximas versões
+ 
+== Documentação ==
+ * Atualmente não há uma documentação completa do Oraculum Framework, há apenas uma relação de métodos existentes em seu núcleo.
+ * Deverá ser disponibilizada uma documentação mais completa para facilitar a vida dos desenvolvedores.
+ * Deverão ser disponibilizados códigos de exemplo para apenas realizar o download e testar.
+ * Deverão ser disponibilizados vídeos de exemplos do uso do Oraculum Framework.
+
+== Camada de Modelo ==
+ * Atualmente a camada de modelo limita-se apenas ao Doctrine ORM e às classes geradas por ele.
+ * Nas próximas versões, deverá existir uma estrutura que faça uma abstração maior, fazendo com que o desenvolvedor não precise conhecer a fundo o funcionamento do Doctrine, e que existam classes específicas apenas para realizar as comunicações com o Doctrine.
+ 
+== Marketing ==
+ * Até o momento, o Oraculum Framework não foi muito divulgado, pelo motivo de que deseja-se que o mesmo conquiste a sua simpatia em um pequeno grupo de desenvolvedores, para que então esta ajuda transforme-se em uma evolução de sua maturidade, para então ser divulgado para um maior número de pessoas, tentando oferecer uma estrutura segura e de qualidade para novos desenvolvedores e para aqueles que desejam um novo padrão para suas aplicações.
