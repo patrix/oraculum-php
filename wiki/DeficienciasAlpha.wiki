@@ -14,7 +14,7 @@
 
 == Camada de Modelo ==
  * Atualmente a camada de modelo limita-se apenas ao Doctrine ORM e às classes geradas por ele.
- * Nas próximas versões, deverá existir uma estrutura que faça uma abstração maior, fazendo com que o desenvolvedor não precise conhecer a fundo o funcionamento do Doctrine, e que existam classes específicas apenas para realizar as comunicações com o Doctrine.
+ * Nas próximas versões, deverá existir uma estrutura que faça uma abstração maior, fazendo com que o desenvolvedor não precise conhecer a fundo o funcionamento do Doctrine. Deverão existir classes específicas apenas para realizar as comunicações com o Doctrine.
  
 == Marketing ==
  * Até o momento, o Oraculum Framework não foi muito divulgado, pelo motivo de que deseja-se que o mesmo conquiste a sua simpatia em um pequeno grupo de desenvolvedores, para que então esta ajuda transforme-se em uma evolução de sua maturidade, para então ser divulgado para um maior número de pessoas, tentando oferecer uma estrutura segura e de qualidade para novos desenvolvedores e para aqueles que desejam um novo padrão para suas aplicações.
