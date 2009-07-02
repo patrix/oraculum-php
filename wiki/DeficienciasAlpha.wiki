@@ -1,4 +1,5 @@
-#Deficiências encontradas na versão Alpha e que devem ser atendidas na versão beta
+#labels Phase-Requirements
+=Deficiências encontradas na versão Alpha e que devem ser atendidas na versão beta=
 
 == Scaffolding ==
  * Atualmente há a necessidade de a chave primária das entidades ser um atributo de nome "codigo". Caso contrário, os sistemas gerados não funcionarão corretamente.
