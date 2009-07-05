@@ -37,7 +37,7 @@ Porém, no futuro algumas coisas podem ser automatizadas na geração do HTML pa
 
 *Por que eu devo utilizar um Framework?*
 
-*R.:* Porque utilizar um Framework é algo complicado, mas que se você souber utilizar, essa complicação pode se transformar em um descomplicador de problemas no futuro. Utilizando um Framework você adota uma nova visão na hora de desenvolver, é como se ao invés de você ficasse falando para alguém montar algo, você mesmo fosse pegando as peças e montando o seu quebra-cabeças.
+*R.:* Porque utilizar um Framework é algo complicado, mas que se você souber utilizar, essa complicação pode se transformar em um descomplicador de problemas no futuro. Utilizando um Framework você adota uma nova visão na hora de desenvolver, é como se ao invés de você ficar falando para alguém montar algo, você mesmo fosse pegando as peças e montando o seu quebra-cabeças.
 
 *Por que devo utilizar o Oraculum?*
 
