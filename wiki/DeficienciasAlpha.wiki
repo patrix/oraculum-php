@@ -2,6 +2,9 @@
 =Deficiências encontradas na versão 0.1 Alpha do Oraculum=
 ===Estas deficiências devem ser atendidas nas próximas versões do Oraculum Framework===
 
+== Facilidade de Uso ==
+ * Atualmente o Framework já está um pouco complexo, nas próximas versões, será simplificado o que for possível.
+
 == Scaffolding ==
  * Atualmente há a necessidade de a chave primária das entidades ser um atributo de nome "codigo". Caso contrário, os sistemas gerados não funcionarão corretamente.
  * Atualmente os relacionamentos com chaves estrangeiras funcionam, porém, não há uma validação desses campos, assim como não é gerado um campo para selecionar o registro correspondente, apenas é exibido um campo para informar o código. Isto deve ser implementado nas próximas versões
