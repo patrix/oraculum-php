@@ -85,11 +85,11 @@ class Oraculum_Views
    * FUNCOES ANTIGAS
    * Evite usar
    ***************************************************/
-  public static function layout($tipo, $autoreturn=true, $project=PROJECT)
+  public static function layout($tipo, $autoreturn=true, $project=NULL)
   {
     $tipo=((($tipo=="css")||($tipo=="img")||($tipo=="js")||($tipo=="swf"))?
     $tipo:null);
-    $layout=BASE_URL."layout/".$project."/".$tipo."/";
+    $layout=URL.'public/'.$tipo.'/';
     if ($autoreturn) {
       echo $layout;
     } else {

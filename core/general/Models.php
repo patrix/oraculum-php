@@ -9,12 +9,15 @@ class Oraculum_Models
     private $_driver=NULL;
     private $_database=NULL;
     private $_driveroptions=array();
+    private $_model=NULL;
     public static $connection=NULL;
 
     public function __construct($model=NULL) {
         if (!defined('MODEL_DIR')) {
             define('MODEL_DIR', 'models');
         }
+        Oraculum::Load('DBO');
+        Oraculum::Load('ActiveRecord');
         return $this->LoadModel($model);
     }
 
@@ -36,13 +39,18 @@ class Oraculum_Models
                 $this->_driveroptions=isset($dsn[5])?$dsn[5]:NULL;
                 $this->_dsn=$this->_driver.':host='.$this->_host.';dbname='.$this->_database;
             }
+            $this->_model=$model;
+        }
+        if (!isset(self::$connection)) {
+            $this->PDO();
         }
         return $this;
     }
 
-    public function SaveModel($table='all') {
+    public function SaveModel($table='all', $debug=TRUE) {
+        $table=strtolower($table);
         if ($table=='all') {
-            $tables=$this->_connection->query('SHOW TABLES')->fetchAll();
+            $tables=self::$connection->query('SHOW TABLES')->fetchAll();
             foreach ($tables as $table) {
                 $dtodir=MODEL_DIR.'/dto/';
                 $daodir=MODEL_DIR.'/dao/';
@@ -82,23 +90,52 @@ class Oraculum_Models
                 }
             }
         }
+        if ($debug) {
+            echo 'Classes geradas com sucesso!<br />';
+            echo 'Para carregar as classes geradas em alguma &aacute;rea do site utilize o seguinte c&oacute;digo:<br />';
+            echo '<pre>';
+            highlight_string("<?php\n\tOraculum::Load('Models');\n\t\$db=new Oraculum_Models('".$this->_model."');\n\t\$db->LoadModelClass();");
+            echo '</pre>';
+        }
     }
 
-    public function LoadModelClass($model='all') {
+    public function LoadModelClass($model='all', $type='AR') {
         if (!is_null($model)) {
             if ($model=='all') {
-                foreach (glob(MODEL_DIR.'/dto/*.php') as $filename) {
-                    include_once($filename);
-                }
-                foreach (glob(MODEL_DIR.'/dao/*.php') as $filename) {
-                    include_once($filename);
+                if ($type=='DO') {
+                    foreach (glob(MODEL_DIR.'/dto/*.php') as $filename) {
+                        include_once($filename);
+                    }
+                    foreach (glob(MODEL_DIR.'/dao/*.php') as $filename) {
+                        include_once($filename);
+                    }
+                } else {
+                    foreach (glob(MODEL_DIR.'/ar/*.php') as $filename) {
+                        include_once($filename);
+                    }
                 }
             } else {
-                $modelfile=MODEL_DIR.'/do/'.$model.'.php';
-                if (file_exists($modelfile)) {
-                    include($modelfile);
+                $model=strtolower($model);
+                if ($type=='DO') {
+                    $modelfile=MODEL_DIR.'/dto/'.$model.'.php';
+                    if (file_exists($modelfile)) {
+                        include($modelfile);
+                    } else {
+                        throw new Exception('[Erro CGM93] Modelo nao encontrado ('.$modelfile.') ');
+                    }
+                    $modelfile=MODEL_DIR.'/dao/'.$model.'.php';
+                    if (file_exists($modelfile)) {
+                        include($modelfile);
+                    } else {
+                        throw new Exception('[Erro CGM93] Modelo nao encontrado ('.$modelfile.') ');
+                    }
                 } else {
-                    throw new Exception('[Erro CGM93] Modelo nao encontrado ('.$modelfile.') ');
+                    $modelfile=MODEL_DIR.'/ar/'.$model.'.php';
+                    if (file_exists($modelfile)) {
+                        include($modelfile);
+                    } else {
+                        throw new Exception('[Erro CGM93] Modelo nao encontrado ('.$modelfile.') ');
+                    }
                 }
             }
         }
@@ -112,7 +149,7 @@ class Oraculum_Models
                 try {
                     self::$connection=new PDO($this->_dsn, $this->_user, (!$this->_pass?'':$this->_pass), $this->_driveroptions);
                     self::$connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                    echo 'CONECTADO!!!';
+                    //echo 'CONECTADO!!!';
                 } catch (PDOException $e) {
                     throw new Exception('PDO Connection Error: '.$e->getMessage());
                 }
@@ -126,14 +163,12 @@ class Oraculum_Models
     }
 
     public function GenerateClass($table='all', $create=TRUE) {
-        if (!isset(self::$connection)) {
-            $this->PDO();
-        }
         $table=strtolower($table);
         if ($table=='all') {
             $tables=self::$connection->query('SHOW TABLES')->fetchAll();
             foreach ($tables as $table) {
                 $this->GenerateDTO($table[0], $create);
+                $this->GenerateDAO($table[0], $create);
             }
         } else {
             try {
@@ -197,10 +232,6 @@ class Oraculum_Models
 
 
     public function GenerateDTO ($table='all', $create=TRUE) {
-        //Oraculum::Load('DBO');
-        if (!isset(self::$connection)) {
-            $this->PDO();
-        }
         $table=strtolower($table);
         if ($table=='all') {
             $tables=self::$connection->query('SHOW TABLES')->fetchAll();
@@ -268,9 +299,6 @@ class Oraculum_Models
     }
 
     public function GenerateDAO ($table='all', $create=TRUE) {
-        if (!isset(self::$connection)) {
-            $this->PDO();
-        }
         $table=strtolower($table);
         if ($table=='all') {
             $tables=self::$connection->query('SHOW TABLES')->fetchAll();
@@ -303,11 +331,15 @@ class Oraculum_Models
                     $classdao.="      }\n";
                     $classdao.="      \$sql=\"SELECT * FROM ".$table." \".\$sqllimit;\n";
                     $classdao.="      \$resultado=\$this->execSQL(\$sql);\n";
-                    $classdao.="      while(\$dados=\$this->dados(\$resultado))\n";
-                    $classdao.="      {\n";
+                    $classdao.="      \$dados=\$this->dados(\$resultado);\n";
+                    $classdao.="      foreach(\$dados as \$d) {\n";
+                    //$classdao.="      while(\$dados=\$this->dados(\$resultado))\n";
+                    //$classdao.="      {\n";
                     foreach ($desc as $d) {
                         $name=ucwords($d[0]);
-                        $classdao.="        \$objDto->set".$name."(stripslashes(\$dados['".$d[0]."']));\n";
+                        //$classdao.="var_dump(\$dados);";
+                        $classdao.="        \$objDto->set".$name."(stripslashes(\$d['".$d[0]."']));\n";
+                        //$classdao.="        \$objDto->set".$name."(stripslashes(\$dados['".$d[0]."']));\n";
                     }
                     $classdao.="        \$return[]=clone \$objDto;\n";
                     $classdao.="      }\n";
@@ -323,11 +355,13 @@ class Oraculum_Models
                     $classdao.="      if(\$this->linhas(\$resultado)==1)\n";
                     $classdao.="      {\n";
                     $classdao.="      \$dados=\$this->dados(\$resultado);\n";
+                    $classdao.="      foreach(\$dados as \$d) {\n";
                     foreach ($desc as $d) {
                         $name=ucwords($d[0]);
-                        $classdao.="        \$objDto->set".$name."(stripslashes(\$dados['".$d[0]."']));\n";
+                        $classdao.="        \$objDto->set".$name."(stripslashes(\$d['".$d[0]."']));\n";
                     }
                     $classdao.="        \$return=clone \$objDto;\n";
+                    $classdao.="      }\n";
                     $classdao.="      }\n";
                     $classdao.="      else\n";
                     $classdao.="      {\n";
@@ -445,11 +479,32 @@ class Oraculum_Models
                 throw new Exception('PDO Connection Error: '.$e->getMessage());
             }
         }
+
+
     }
 
 
-
-
+    public function GenerateAR ($table='all', $create=TRUE) {
+        if ($table=='all') {
+            $tables=self::$connection->query('SHOW TABLES')->fetchAll();
+            foreach ($tables as $table) {
+                $this->GenerateAR($table[0], $create);
+            }
+        } else {
+            $table=strtolower($table);
+            $classear=ucwords($table);
+            $class="class ".$classear." extends ActiveRecord{\n";
+            $class.="\tpublic function __construct(){\n";
+            $class.="\t\tparent::__construct(get_class(\$this));\n";
+            $class.="\t}\n";
+            $class.="}\n";
+            if ($create) {
+                eval($class);
+            } else {
+                return "<?php \n".$class;
+            }
+        }
+    }
 
 
 
@@ -484,15 +539,6 @@ class Oraculum_Models
                 } else {
                     return Oraculum_Models::getInstance()->openConnection($adapter, $name);
                 }
-  		/*$pagefile=CONTROL_DIR.'/pages/'.$page.'.php';
-  		$errorpage=CONTROL_DIR.'/pages/'.ERRORPAGE.'.php';
-				if (file_exists($pagefile)) {
-					include_once($pagefile);
-				} elseif(file_exists($errorpage)) {
-					include_once($errorpage);
-				} else {
-					throw new Exception('[Erro CGC37] Pagina nao encontrada ('.$pagefile.') ');
-				}*/
   	}
   	return $this;
   }
@@ -511,6 +557,8 @@ class Oraculum_Models
   	} else {
             $this->_dsn=$dsn;
         }
-
+    }
+    public function getModelName() {
+        return $this->_model;
     }
 }

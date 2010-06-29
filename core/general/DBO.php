@@ -11,7 +11,6 @@
     private $_host=NULL;
     private $_username=NULL;
     private $_password=NULL;
-    //private $_connection=NULL;
     private $_squema=NULL;
 
     // Contrutor
@@ -19,10 +18,9 @@
     {
       // Incluindo arquivo com configuracoes do banco
     }
-
     public static function execSQL($sql,$debug=false,$showsql=false)
     {
-        try{
+        try {
             return self::$connection->query($sql);
         } catch (PDOException $e) {
             throw new Exception('PDO Connection Error: '.$e->getMessage());
@@ -42,6 +40,14 @@
       return $retorno;
     }
 
+    public function getInsertId()
+    {
+        try {
+            return self::$connection->lastInsertId();
+        } catch (PDOException $e) {
+            throw new Exception('PDO Connection Error: '.$e->getMessage());
+        }
+    }
     public function start()
     {
       $this->execSQL("begin");
@@ -65,6 +71,9 @@
 
     public function linhas($query)
     {
+        return $query->rowCount();
+        var_dump($query);
+        return $query->query("SELECT FOUND_ROWS()")->fetchColumn();
       return mysql_num_rows($query);
     }
   }
