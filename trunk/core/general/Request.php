@@ -16,6 +16,12 @@
 
 class Oraculum_Request
 {
+    public static function defineTmpDir($dir='/tmp/')
+    {
+        if (!defined('TMP_DIR')) {
+                define('TMP_DIR', $dir);
+        }
+    }
   // Receber variaveis por $_POST
   public static function post($indice,$tipo="s")
   {
@@ -113,9 +119,10 @@ class Oraculum_Request
   // Inicializar sessao
   public static function init_sess()
   {
+        Oraculum_Request::defineTmpDir();
   	if (!isset($_SESSION)) {
-	    if (ini_get('session.save_path')!=DIR_TMP) {
-	      session_save_path(DIR_TMP);
+	    if (ini_get('session.save_path')!=TMP_DIR) {
+	      session_save_path(TMP_DIR);
 	    }
 	    session_start();
   	}

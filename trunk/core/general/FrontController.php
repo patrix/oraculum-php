@@ -33,14 +33,15 @@ class Oraculum_FrontController
 		$request=Oraculum_Request::request();
 		$url=str_ireplace(URL, '', $request);
 		$gets=Oraculum_Request::gets();
-		if (isset($gets[BASE])) {
-			$page=$gets[BASE];
+		if (isset($gets[(BASE)+1])) {
+			$page=$gets[(BASE)+1];
 		} else {
-			throw new Exception('[Erro CGFC36] Nao foi possivel determinar a pagina atraves da URL');
+			$page=$this->_defaulturl;
+			//throw new Exception('[Erro CGFC36] Nao foi possivel determinar a pagina atraves da URL');
 		}
 		if ($url=='') {
 			$url=$this->_defaulturl;
 		}
-		Oraculum_App::LoadControl()->LoadPage($url);
+		Oraculum_App::LoadControl()->LoadPage($page, $url);
 	}
 }
