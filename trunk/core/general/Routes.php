@@ -25,7 +25,7 @@ class Oraculum_Routes
   }
   public static function check()
   {
-    $rotas="./apps/".PROJECT."/controllers/routes.php";
+    $rotas='./'.CONTROL_DIR.'/routes.php';
     if (file_exists($rotas)) {
         include($rotas);
     }

@@ -39,7 +39,7 @@ class Oraculum_HTTP
   {
     $host=isset($_SERVER['REMOTE_HOST'])?$_SERVER['REMOTE_HOST']:null;
     if ((is_null($host))||($host=="")) {
-      $host=ip();
+      $host=Oraculum_HTTP::ip();
     }
     return $host;
   }
