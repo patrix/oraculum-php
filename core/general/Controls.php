@@ -23,6 +23,7 @@ class Oraculum_Controls
 		if (!defined('ERRORPAGE')) {
 			define('ERRORPAGE', '404');
 		}
+
 	}
 
   public function LoadPage($page=NULL, $url=NULL, $usetemplate=false)

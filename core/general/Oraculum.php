@@ -42,7 +42,7 @@ class Oraculum
     include_once("./library/core/Text.php");
     include_once("./library/core/Views.php");
   }
-  public static function load($modulo)
+  public static function Load($modulo)
   {
       $modulos=array("Crypt","Files","Forms","HTTP","Logs","Request","Routes","Test","Text","Views");
       if (in_array($modulo, $modulos)) {

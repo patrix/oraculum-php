@@ -18,26 +18,16 @@
     {
       // Incluindo arquivo com configuracoes do banco
     }
-    public static function execSQL($sql,$debug=false,$showsql=false)
+    public static function execSQL($sql, $showsql=false)
     {
+        if ($showsql) {
+            echo "<br />SQL: <pre>".$sql."</pre>";
+        }
         try {
             return self::$connection->query($sql);
         } catch (PDOException $e) {
             throw new Exception('PDO Connection Error: '.$e->getMessage());
         }
-      /*if($showsql==true)
-      {
-        echo "<br />SQL: <pre>".$sql."</pre>";
-      }
-      if($debug==true)
-      {
-        $retorno=mysql_query($sql,parent::$connection) or die ("<br />Erro: <pre>".mysql_error()."</pre>");
-      }
-      else
-      {
-        $retorno=mysql_query($sql,parent::$connection);
-      }*/
-      return $retorno;
     }
 
     public function getInsertId()
