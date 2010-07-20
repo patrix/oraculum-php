@@ -17,12 +17,28 @@ class ActiveRecord extends DBO{
         }
         return $this;
     }
-
-    public function getAll($limit=NULL) {
+    public function getLines($limit=NULL) {
         $limit=(int)$limit;
-        $query='SELECT * FROM '.$this->_tableName;
+        $query='SELECT count(*) as \'count\' FROM '.$this->_tableName;
         if ($limit>0) {
             $query.=' LIMIT '.$limit;
+        }
+        $rows=$this->execSQL($query);
+        $lines=$this->fetch($rows);
+        return (int)$lines[0]->count;
+    }
+    public function getAll($limit=NULL, $offset=NULL, $orderby=NULL, $order='ASC') {
+        $limit=(int)$limit;
+        $offset=(int)$offset;
+        $query='SELECT * FROM '.$this->_tableName;
+        if (!is_null($orderby)) {
+            $query.=' ORDER BY '.$orderby.' '.$order;
+        }
+        if ($limit>0) {
+            $query.=' LIMIT '.$limit;
+            if ($offset>0) {
+                $query.=' OFFSET '.$offset;
+            }
         }
         $rows=$this->execSQL($query);
         return $this->fetch($rows);
@@ -37,8 +53,21 @@ class ActiveRecord extends DBO{
             return NULL;
         }
     }
-    public function getAllByTableField($field, $value, $type='%s') {
-        $query=sprintf('SELECT * FROM '.$this->_tableName.' WHERE '.$field.'="'.$type.'"',$this->secsql($value));
+    public function getAllByTableField($field, $value, $type='%s', $limit=NULL, $offset=NULL) {
+        $limit=(int)$limit;
+        $offset=(int)$offset;
+        $sqllimit=NULL;
+        if ($limit>0) {
+            $sqllimit='LIMIT '.$limit;
+            if ($offset>0) {
+                $sqllimit.=' OFFSET '.$offset;
+            }
+        }
+        if (stripos($value, '%')!==FALSE) {
+            $query=sprintf('SELECT * FROM '.$this->_tableName.' WHERE '.$field.' LIKE "'.$type.'" '.$sqllimit, $this->secsql($value));
+        } else {
+            $query=sprintf('SELECT * FROM '.$this->_tableName.' WHERE '.$field.'="'.$type.'" '.$sqllimit, $this->secsql($value));
+        }
         $rows=$this->execSQL($query);
         $rows=$this->fetch($rows);
         return $rows;
@@ -67,7 +96,9 @@ class ActiveRecord extends DBO{
             $field=strtolower(str_replace('getAllBy', '',$name));
             $value=(isset($values[0]))?$values[0]:NULL;
             $type=(isset($values[1]))?$values[1]:'%s';
-            return $this->getAllByTableField($field, $value, $type);
+            $limit=(isset($values[2]))?$values[2]:NULL;
+            $offset=(isset($values[3]))?$values[3]:NULL;
+            return $this->getAllByTableField($field, $value, $type, $limit, $offset);
         }
     }
 
@@ -89,7 +120,7 @@ class ActiveRecord extends DBO{
         return $return;
     }
 
-    public function insert()
+    public function insert($debug=FALSE)
     {
         $values=NULL;
         $fields=NULL;
@@ -110,13 +141,12 @@ class ActiveRecord extends DBO{
         }
         $eval.=')';
         $eval.=' VALUES ('.$values.')\','.$fields.');';
-        //echo $eval;
         eval($eval);
-        $this->execSQL($query);
+        $this->execSQL($query, $debug);
         $this->_keyvalue=array($this->getInsertId());
         return $this;
     }
-    public function update()
+    public function update($debug=FALSE)
     {
         $fields=NULL;
         $eval='$query=sprintf(\'UPDATE '.$this->_tableName.' SET ';
@@ -132,13 +162,12 @@ class ActiveRecord extends DBO{
         $eval.='WHERE '.$this->_key[0].'="%u"';
         $fields.='$this->secsql('.$this->_keyvalue[0].')';
         $eval.='\','.$fields.');';
-        //echo $eval;
         eval($eval);
-        $this->execSQL($query);
+        $this->execSQL($query, $debug);
         $this->_keyvalue=array($this->getInsertId());
         return $this;
     }
-    public function delete()
+    public function delete($debug=FALSE)
     {
         $this->updateKeyValue();
         $fields=NULL;
@@ -146,17 +175,20 @@ class ActiveRecord extends DBO{
         $eval.='WHERE '.$this->_key[0].'="%u"';
         $fields.='$this->secsql('.$this->_keyvalue[0].')';
         $eval.='\','.$fields.');';
+        if ($debug) {
+            echo $eval;
+        }
         eval($eval);
         $this->execSQL($query);
         return $this;
     }
-    public function save()
+    public function save($debug=FALSE)
     {
         $this->updateKeyValue();
         if (!empty($this->_keyvalue)) {
-            $this->update();
+            $this->update($debug);
         } else {
-            $this->insert();
+            $this->insert($debug);
         }
     }
 
