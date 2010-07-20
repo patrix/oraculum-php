@@ -10,32 +10,35 @@
  *    @modifiedby     $LastChangedBy: Patrick $
  *    @lastmodified   $Date: 2009-04-16 12:50:21 -0300 (Qui, 16 Abr 2009) $
  */
-class Captcha
+class Oraculum_Captcha
 {
-  public function __construct($type=1,$string=null)
-  {
-    if (is_null(Oraculum_Request::sess("captcha"))) {
-      if (($type==2)||($type==3)) {
-        $aux=$string.time();
-        $aux=(md5(base64_encode(str_rot13($aux))));
-        $aux=str_rot13(base64_encode(str_rot13($aux)));
-        if ($type==2) {
-                  $aux=strtolower($aux);
+    public function __construct($type=1,$size=6) {
+        Oraculum_Request::init_sess();
+        if (is_null(Oraculum_Request::sess("captcha"))) {
+            if ($type==3) {
+                $letters='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+                $max=61;
+            } elseif ($type==2) {
+                $letters='abcdefghijklmnopqrstuvwxyz0123456789';
+                $max=35;
+            } else {
+                $letters='0123456789';
+                $max=9;
+            }
+            $string=NULL;
+            for($i=0;$i<$size;$i++) {
+                $string.=$letters{mt_rand(0, $max)};
+            }
+            Oraculum_Request::setsess("captcha", $string);
+        } else {
+            $string=Oraculum_Request::sess("captcha");
         }
-        $string=substr($aux, 0, 6);
-      } else {
-              $string=rand(1, 999999);
-      }
-      Oraculum_Request::setsess("captcha", $string);
-    } else {
-      $string=Oraculum_Request::sess("captcha");
+        $img=imagecreate(((10)*$size), 25);
+        $backcolor=imagecolorallocate($img, 255, 255, 255);
+        $textcolor=imagecolorallocate($img, 000, 000, 000);
+        imagefill($img, 0, 0, $backcolor);
+        imagestring($img, 10, 0, 5, $string, $textcolor);
+        header("Content-type: image/jpeg");
+        imagejpeg($img);
     }
-    $img=imagecreate(60, 25);
-    $backcolor=imagecolorallocate($img, 255, 255, 255);
-    $textcolor=imagecolorallocate($img, 000, 000, 000);
-    imagefill($img, 0, 0, $backcolor);
-    imagestring($img, 10, 5, 5, $string, $textcolor);
-    header("Content-type: image/jpeg");
-    imagejpeg($img);
-  }
 }
