@@ -10,7 +10,7 @@
  *    @required       PHPMailer 2.3 ou superior
  */
 
-class Contact
+class Oraculum_Contact
 {
     public $blankfields=FALSE;
     private $_required=array();
@@ -18,31 +18,49 @@ class Contact
     private $_emailfield=NULL;
     private $_email=NULL;
     private $_errormsg=NULL;
+    private $_to=NULL;
+    private $_replyto=NULL;
+    private $_subject=NULL;
+    private $_message=NULL;
+    private $_from=NULL;
+    private $_fromname=NULL;
+    private $_bcc=NULL;
+    private $_smtphost=NULL;
+    private $_smtpuser=NULL;
+    private $_smtppassword=NULL;
+
+    public function __construct($host=NULL, $user=NULL, $password=NULL) {
+        $this->_smtphost=$host;
+        $this->_smtpuser=$user;
+        $this->_smtppassword=$password;
+    }
 
     public function addRequiredFields($obrigatorios=array()) {
         $this->_required=$obrigatorios;
     }
-    public function addFields($campos=array()) {
-        foreach ($campos as $campo=>$valor) {
-            if ((($valor=='')||(is_null($valor)))&&(in_array($campo, $this->_required))) {
+    public function addFields($fields=array()) {
+        //var_dump($fields);
+        foreach ($fields as $field=>$value) {
+            if ((($value=='')||(is_null($value)))&&(in_array($field, $this->_required))) {
                 $this->blankfields=TRUE;
-                $this->_errormsg.='O campo <strong>'.$campo.'</strong> n&atilde;o foi informado!<br />';
+                $this->_errormsg.='O campo <strong>'.$field.'</strong> n&atilde;o foi informado!<br />';
             } else {
-                $this->addField($campo, $valor);
+                $this->addField($field, $value);
 
             }
         }
     }
     public function addField($campo, $valor) {
         $this->_fields[$campo]=$valor;
-        
-
     }
 
     public function emailField($field='E-mail'){
+        //var_dump($this->_fields);
+        //exit;
         if (isset($this->_fields[$field])) {
             $this->_emailfield=$field;
             $this->_email=$this->_fields[$field];
+            //define('EMAIL_FIELD', $this->_fields[$field]);
         }
     }
     public function validyEmail() {
@@ -57,11 +75,54 @@ class Contact
         return FALSE;
       }
     }
+
+
+    /*public function __set($name, $value) {
+        / *return true;
+        echo $name;
+        if (isset($this->_{$$name})) {
+            $this->_{$$name}=$value;
+        } else {
+            throw new Exception('Atributo invalido \''.$name.'\'');
+        }*/
+        /*if (!is_null($value)) {
+            $this->_fields[$name]=$value;
+        } else {
+            $this->_fields[$name]=NULL;
+        }* /
+    }*/
+
+    public function __call($name, $values){
+        if (stripos($name, 'set')!==false) {
+            $field='_'.strtolower(str_replace('set', '',$name));
+            if (property_exists($this, $field)) {
+                $this->{$field}=$values[0];
+            } else {
+                throw new Exception('Atributo invalido \''.$field.'\'');
+            }
+
+        }
+    }
+
+
     public function send() {
-        //sendmail($para=array(),$assunto=null,$mensagem=null,$from=null,$fromname=null,$replyto=null,$bcc=null)
-        echo 'ENVIANDO...';
-        
-        return true;
+        $from=$this->_from;
+        $fromname=$this->_fromname;
+        $to=is_array($this->_to)?$this->_to:array($this->_to);
+        $subject=$this->_subject;
+        //$message=$this->_message;
+        $replyto=$this->_replyto;
+        $bcc=$this->_bcc;
+        $text=NULL;
+        foreach ($this->_fields as $field=>$value) {
+            $text.='<strong>'.$field.':</strong> '.$value.'<br />'."\n";
+        }
+
+
+	include('plugins/mail.php');
+        $mail=new Oraculum_Mail($this->_smtphost, $this->_smtpuser, $this->_smtppassword);
+
+        return $mail->sendmail($to,$subject,$text,$from,$fromname,$replyto,$bcc);
     }
     public function getErrors() {
         return $this->_errormsg;
