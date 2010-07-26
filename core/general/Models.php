@@ -147,7 +147,6 @@ class Oraculum_Models
         if (!is_null($model)) {
             $class=ucwords($model);
             if (!class_exists($class)) {
-                echo ">...";
                 $eval='class '.$class.' extends ActiveRecord{';
                 $eval.=' public function __construct(){';
                 $eval.='     parent::__construct(get_class($this))';

@@ -8,9 +8,9 @@
  *    @package        oraculum
  *    @subpackage     oraculum.core.views
  *    @license        http://www.opensource.org/licenses/lgpl-3.0.html (LGPLv3)
- *    @version        $Revision: 247 $
+ *    @version        $Revision:  $
  *    @modifiedby     $LastChangedBy: Patrick $
- *    @lastmodified   $Date: 2009-04-16 11:44:46 -0300 (Qui, 16 Abr 2009) $
+ *    @lastmodified   $Date: $
  *
  */
 
@@ -65,7 +65,7 @@ class Oraculum_Views
   	return $this;
   }
   
-  public function LoadElement($element=NULL)
+  public static function LoadElement($element=NULL)
   {
   	if (is_null($element)) {
   		throw new Exception ('[Erro CGV69] Elemento nao informado');
@@ -98,6 +98,9 @@ class Oraculum_Views
   }
   public static function loadview($view=null, $modulo="index", $titulo=null, $vars=array())
   {
+    if(!defined('PROJECT')) {
+        return Oraculum_Views::LoadElement($view);
+    } else{
   	foreach ($vars as $key=>$value) {
   		$$key=$value;
   	}
@@ -121,6 +124,7 @@ class Oraculum_Views
     } else {
     	return false;
     }
+  }
   }
 }
 
