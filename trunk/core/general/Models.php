@@ -132,16 +132,36 @@ class Oraculum_Models
                 } else {
                     $modelfile=MODEL_DIR.'/ar/'.$model.'.php';
                     if (file_exists($modelfile)) {
-                        include($modelfile);
+                        include_once($modelfile);
                     } else {
-                        throw new Exception('[Erro CGM93] Modelo nao encontrado ('.$modelfile.') ');
+                        if (!$this->LoadDinamicModelClass($model)) {
+                            throw new Exception('[Erro CGM93] Modelo nao encontrado ('.$modelfile.') ');
+                        }
                     }
                 }
             }
         }
         return $this;
     }
-
+    public function LoadDinamicModelClass($model=NULL, $key='codigo') {
+        if (!is_null($model)) {
+            $class=ucwords($model);
+            if (!class_exists($class)) {
+                echo ">...";
+                $eval='class '.$class.' extends ActiveRecord{';
+                $eval.=' public function __construct(){';
+                $eval.='     parent::__construct(get_class($this))';
+                $eval.='     ->setKey(array(\''.$key.'\'));';
+                $eval.=' }';
+                $eval.='}';
+                eval($eval);
+            }
+            return true;
+        } else {
+            throw new Exception('[Erro CGM160] Modelo nao informado ('.$model.') ');
+        }
+        return $this;
+    }
     public function PDO()
     {
         if (extension_loaded('pdo')) {
