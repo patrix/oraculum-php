@@ -26,6 +26,7 @@ class Oraculum_Exception extends Exception
 
     public static function showException($e)
     {
+		Oraculum::Load('Logs');
         $filecode=NULL;
         $message=$e->getMessage();
         $code=$e->getCode();
@@ -76,10 +77,11 @@ class Oraculum_Exception extends Exception
             }
         }
         $report='<div style=\'float:left;text-align:left;\'>'.$report.'</div>';
-        alert($report);
+        Oraculum_Logs::alert($report);
     }
     public static function showError($code=NULL,$message=NULL,$file=NULL,$line=NULL,$context=null)
     {
+		Oraculum::Load('Logs');
         $filecode=NULL;
         $report='<h1>'.$message.'</h1>';
         $report.='<strong>Error Code:</strong> #'.$code.'<br />';
@@ -118,7 +120,7 @@ class Oraculum_Exception extends Exception
             $report.='<div id="'.$cod.'" style="display:none;border:1px solid #444;background-color:#fff; word-wrap:break-word;">'.highlight_file($filecode, true).'</div><br />';
         }*/
         $report='<div style=\'float:left;text-align:left;\'>'.$report.'</div>';
-        alert($report);
+        Oraculum_Logs::alert($report);
     }
     public static function stop() {
         restore_exception_handler();
