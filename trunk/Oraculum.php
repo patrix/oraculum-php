@@ -25,6 +25,5 @@
 					throw new Exception('[Erro RO25] Biblioteca nao encontrada ('.$libfile.') ');
 				}
 			}
-		
 		}
 	}

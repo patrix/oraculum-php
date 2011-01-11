@@ -14,11 +14,15 @@ class Oraculum_Mail
     private $_host=NULL;
     private $_user=NULL;
     private $_password=NULL;
+    private $_ssl=FALSE;
+    private $_smtpport=NULL;
 
-    public function __construct($host=NULL, $user=NULL, $password=NULL) {
+    public function __construct($host=NULL, $user=NULL, $password=NULL, $smtpport=NULL, $ssl=FALSE) {
         $this->_host=$host;
         $this->_user=$user;
         $this->_password=$password;
+        $this->_ssl=(bool)$ssl;
+        $this->_smtpport=(int)$smtpport;
     }
 
     public function sendmail($tos=array(),$subject=null,$msg=null,$from=null,$fromname=null,$replyto=null,$bcc=null)
@@ -54,13 +58,17 @@ class Oraculum_Mail
             $mail->WordWrap=50; // Definicao de quebra de linha
             $mail->IsSMTP(); // send via SMTP
             $mail->SMTPAuth=true; // Habilitando a autenticacao
-            //$mail->SMTPSecure="ssl"; // Definindo modo SSL
+            if ($this->_ssl) {
+                $mail->SMTPSecure="ssl"; // Definindo modo SSL
+            }
             $mail->Host=$this->_host; //seu servidor SMTP
             $mail->Username=$this->_user; // Usuario Autenticador
             $mail->Password=$this->_password; // Senha do usuario (nao usar ou divulgar).
             //$mail->IsMail();
             $mail->SMTPDebug=0;
-            //$mail->Port=587;
+            if ((int)$this->_smtpport>0) {
+                $mail->Port=(int)$this->_smtpport;
+            }
             $mail->IsHTML(true);
             // Destino
             foreach ($tos as $to) {

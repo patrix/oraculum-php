@@ -42,47 +42,37 @@ class Oraculum_Logs
 	 */
     public static function showException($e)
     {
-    // obtém a pilha de erro
-    $errorarray = $e->getTrace();
-    // monta uma tabela
-    echo '<table border=1>';
-    echo '<tr>';
-    echo '<td><b>General Error: ' . $e->getMessage(). '<br></td>';
-    echo '</tr>';
-    // percorre a pilha de erro
-    foreach ($errorarray as $error) {
+        $errorarray=$e->getTrace();
+        echo '<table border=1>';
         echo '<tr>';
-        echo '<td>';
-        // arquivo e linha do erro
-        echo 'File: '.$error['file']. ' : '. $error['line'];
-        echo '</td>';
-
-        $args = array();
-
-        // transforma os argumentos
-        if ($error['args']) {
-            foreach ($error['args'] as $arg) {
-                if (is_object($arg)) {
-                    // objetos transformam-se no nome da classe
-                    $args[] = get_class($arg). ' object';
-                } else if (is_array($arg)) {
-                    // arrays são convertidos para string
-                    $args[] = implode(',', $arg);
-                } else {
-                    $args[] = (string) $arg;
+        echo '<td><b>General Error: '.$e->getMessage().'<br></td>';
+        echo '</tr>';
+        foreach ($errorarray as $error) {
+            echo '<tr>';
+            echo '<td>';
+            echo 'File: '.$error['file'].' : '.$error['line'];
+            echo '</td>';
+            $args = array();
+            if ($error['args']) {
+                foreach ($error['args'] as $arg) {
+                    if (is_object($arg)) {
+                        $args[]=get_class($arg).' object';
+                    } else if (is_array($arg)) {
+                        $args[]=implode(',', $arg);
+                    } else {
+                        $args[]=(string)$arg;
+                    }
                 }
             }
+            echo '<tr>';
+            echo '<td>';
+            echo '&nbsp;&nbsp;<i>'.'<font color=green>'.$error['class'].'</font>'.
+                 '<font color=olive>'.$error['type'].'</font>'.
+                 '<font color=darkblue>'.$error['function'].'</font>'.
+                 '('.'<font color=maroon>'.implode(',', $args).'</font>'.')</i>';
+            echo '</td>';
+            echo '</tr>';
         }
-        // exibe os argumentos
-        echo '<tr>';
-        echo '<td>';
-        echo '&nbsp;&nbsp;<i>'.'<font color=green>'.$error['class'].'</font>'.
-             '<font color=olive>'.$error['type'].'</font>'.
-             '<font color=darkblue>'.$error['function'].'</font>'.
-             '('.'<font color=maroon>'.implode(',', $args).'</font>'.')</i>';
-        echo '</td>';
-        echo '</tr>';
-    }
-    echo '</table>';
+        echo '</table>';
     }
 }

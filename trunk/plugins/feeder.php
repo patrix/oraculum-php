@@ -33,7 +33,6 @@ class Oraculum_Feeder{
         $rss.='<link>'.$this->_link.'</link>'."\n";
         $rss.='<language>'.$this->_language.'</language>'."\n";
         foreach ($this->_itens as $item) {
-
             //$dtrfc=$dia.' ' .$mes2.' '.$ano.' '.$hora.' GMT';
             $rss.='<item>'."\n";
             $rss.='<title>'.$item[1].'</title>'."\n";
@@ -42,7 +41,6 @@ class Oraculum_Feeder{
             $rss.='<link>'.$item[0].'</link>'."\n";
             $rss.='<guid>'.$item[0].'</guid>'."\n";
             $rss.='</item>'."\n";
-
         }
         $rss.='</channel>'."\n";
         $rss.='</rss>'."\n";
