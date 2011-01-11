@@ -918,12 +918,12 @@ class canvas {
 			case 'bmp':
 				if ( $destino )
 				{
-					imagejpeg( $this->img, $destino, $qualidade );
+					$criou=imagejpeg( $this->img, $destino, $qualidade );
 				}
 				else
 				{
 					header( "Content-type: image/jpeg" );
-					imagejpeg( $this->img, NULL, $qualidade );
+					$criou=imagejpeg( $this->img, NULL, $qualidade );
 					imagedestroy( $this->img );
 					exit;
 				}
@@ -931,12 +931,12 @@ class canvas {
 			case 'png':
 				if ( $destino )
 				{
-					imagepng( $this->img, $destino );
+					$criou=imagepng( $this->img, $destino );
 				}
 				else
 				{
 					header( "Content-type: image/png" );
-					imagepng( $this->img );
+					$criou=imagepng( $this->img );
 					imagedestroy( $this->img );
 					exit;
 				}
@@ -944,12 +944,12 @@ class canvas {
 			case 'gif':
 				if ( $destino )
 				{
-					imagegif( $this->img, $destino );
+					$criou=imagegif( $this->img, $destino );
 				}
 				else
 				{
 					header( "Content-type: image/gif" );
-					imagegif( $this->img );
+					$criou=imagegif( $this->img );
 					imagedestroy( $this->img );
 					exit;
 				}
@@ -958,6 +958,7 @@ class canvas {
 				return false;
 				break;
 		}
+                return $criou;
 
 	} // fim grava
 

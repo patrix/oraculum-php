@@ -34,17 +34,25 @@ class Oraculum_Controls
   		$pagefile=CONTROL_DIR.'/pages/'.$page.'.php';
   		$urlfile=CONTROL_DIR.'/pages/'.$url.'.php';
   		$errorpage=CONTROL_DIR.'/pages/'.ERRORPAGE.'.php';
-				if (file_exists($urlfile)) {
-					include_once($urlfile);
-				} elseif (file_exists($pagefile)) {
-					include_once($pagefile);
-				} elseif(file_exists($errorpage)) {
-                                        //header("HTTP/1.1 404 Not Found");
-					include_once($errorpage);
-				} else {
-                                        header("HTTP/1.1 404 Not Found");
-					throw new Exception('[Erro CGC48] Pagina nao encontrada ('.$pagefile.') ');
-				}
+                if ($page=='') {
+                    $class=ucwords($url).'Controller';
+                } else {
+                    $class=ucwords($page).'Controller';
+                }
+                if (file_exists($urlfile)) {
+                        include_once($urlfile);
+                } elseif (file_exists($pagefile)) {
+                        include_once($pagefile);
+                } elseif(file_exists($errorpage)) {
+                        //header("HTTP/1.1 404 Not Found");
+                        include_once($errorpage);
+                } else {
+                        header("HTTP/1.1 404 Not Found");
+                        throw new Exception('[Erro CGC48] Pagina nao encontrada ('.$pagefile.') ');
+                }
+                if (class_exists($class)) {
+                    new $class;
+                }
   	}
   	return $this;
   }

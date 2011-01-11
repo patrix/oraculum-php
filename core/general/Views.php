@@ -48,19 +48,23 @@ class Oraculum_Views
   		throw new Exception ('[Erro CGV47] Pagina nao informada');
   	} else {
   		$pagefile=VIEW_DIR.'/pages/'.$page.'.php';
-				if (file_exists($pagefile)) {
-					$templates=$this->_ViewsRegister->GetTemplates();
-					if (empty($templates)) {
-						include_once($pagefile);
-					} else {
-  						echo $this->_template[0];
-						include_once($pagefile);
-  						echo $this->_template[1];
-						return $this;
-					}
-				} else {
-					throw new Exception('[Erro CGV61] Pagina nao encontrada ('.$pagefile.') ');
-				}
+                $class=ucwords($page).'View';
+                if (file_exists($pagefile)) {
+                        $templates=$this->_ViewsRegister->GetTemplates();
+                        if (empty($templates)) {
+                                include_once($pagefile);
+                        } else {
+                                echo $this->_template[0];
+                                include_once($pagefile);
+                                echo $this->_template[1];
+                                return $this;
+                        }
+                } else {
+                        throw new Exception('[Erro CGV61] Pagina nao encontrada ('.$pagefile.') ');
+                }
+                if (class_exists($class)) {
+                    new $class;
+                }
   	}
   	return $this;
   }

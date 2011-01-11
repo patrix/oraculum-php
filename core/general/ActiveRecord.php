@@ -63,10 +63,15 @@ class ActiveRecord extends DBO{
                 $sqllimit.=' OFFSET '.$offset;
             }
         }
-        if (stripos($value, '%')!==FALSE) {
-            $query=sprintf('SELECT * FROM '.$this->_tableName.' WHERE '.$field.' LIKE "'.$type.'" '.$sqllimit, $this->secsql($value));
+        if (is_array($value)) {
+            $value='IN ('.implode(',',$value).')';
+            $query=sprintf('SELECT * FROM '.$this->_tableName.' WHERE '.$field.' '.$type.' '.$sqllimit, $this->secsql($value));
         } else {
-            $query=sprintf('SELECT * FROM '.$this->_tableName.' WHERE '.$field.'="'.$type.'" '.$sqllimit, $this->secsql($value));
+            if (stripos($value, '%')!==FALSE) {
+                $query=sprintf('SELECT * FROM '.$this->_tableName.' WHERE '.$field.' LIKE "'.$type.'" '.$sqllimit, $this->secsql($value));
+            } else {
+                $query=sprintf('SELECT * FROM '.$this->_tableName.' WHERE '.$field.'="'.$type.'" '.$sqllimit, $this->secsql($value));
+            }
         }
         $rows=$this->execSQL($query);
         $rows=$this->fetch($rows);
@@ -214,220 +219,9 @@ class ActiveRecord extends DBO{
     }
     public function secsql($string)
     {
-      //$string=mysql_real_escape_string($string);
+      //$string=mysql_real_escape_string($string, self::$connection);
+      $string=addslashes($string);
       return $string;
     }
 
 }
-/*
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  public function __construct($tableName, $key=null, PDO $dbConnection=null){
-        $this->_tableName = $tableName;
-        $this->_key = $key;
-
-        $this->_dbConnection = (!$dbConnection && self::$_defaultDBConnection)?
-                                    self::$_defaultDBConnection:
-                                    $dbConnection;
-
-        $this->_dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    }
-    public function getKey(){
-        return $this->_key;
-    }
-
-    public function __get($field){
-        return $this->getValue($field);
-    }public function getValue($field){
-        if(!$this->_fields){
-            $this->describe();
-        }
-
-        if(isset($this->_fields[$field])){
-            if(!$this->_fields[$field]['value']){
-                $this->select();
-            }
-
-            return $this->_fields[$field]['value'];
-        } else {
-            throw new Exception('Unknown field `'.$field.'`');
-        }
-    }
-
-    public function __set($field, $value){
-        return $this->setValue($field, $value);
-    }
-    public function setValue($field, $value){
-        if(!$this->_fields){
-            $this->describe();
-        }
-
-        if(isset($this->_fields[$field])){
-            $this->_fields[$field]['value']   = $value;
-            $this->_fields[$field]['changed'] = true;
-
-            return $this->_fields[$field]['value'];
-        }else{
-            throw new Exception('Unknown field `'.$field.'`');
-        }
-    }
-    public function setDBConnection(PDO $db){
-        return $this->_dbConnection = $db;
-    }
-    public function getDBConnection(){
-        return $this->_dbConnection;
-    }
-    protected function select(){
-        if(!$this->_fields){
-            $this->describe();
-        }
-
-        if(!$this->_key || !$this->_keyField){
-            throw new Exception("Key field ('{$this->_key}', `{$this->_keyField}`) are invalid");
-        }
-
-        $db = $this->getCheckedDBConnection();
-        $sql = "SELECT * FROM `{$this->_tableName}` WHERE `{$this->_keyField}` = :key LIMIT 1";
-        $stmt = $db->prepare($sql);
-        $stmt->setFetchMode(PDO::FETCH_ASSOC);
-        $stmt->execute(array(':key'=>$this->_key));
-
-        foreach($stmt->fetch() as $field=>$value){
-            //field must present
-            assert(isset($this->_fields[$field]));
-            $this->_fields[$field]['changed'] = false;
-            $this->_fields[$field]['value'] = $value;
-        }
-
-    }
-
-
-    /*public function __construct() {
-    }*/
-/*
-
-
-    public function getAll($limit=10)
-    {
-        $limit=(int)$limit;
-        $fields=self::$fields;
-        foreach ($fields as $field) {
-
-        }
-
-        $objDto=new NoticiasDTO();
-        $return=array();
-        if($limit>0) {
-            $sqllimit='LIMIT '.$limit;
-        }
-        else
-        {
-        $sqllimit="";
-        }
-        $sql="SELECT * FROM noticias ".$sqllimit;
-        $resultado=$this->execSQL($sql);
-        $dados=$this->dados($resultado);
-        foreach($dados as $d) {
-        $objDto->setCodigo(stripslashes($d['codigo']));
-        $objDto->setTitulo(stripslashes($d['titulo']));
-        $objDto->setTarja(stripslashes($d['tarja']));
-        $objDto->setFoto(stripslashes($d['foto']));
-        $objDto->setData(stripslashes($d['data']));
-        $objDto->setTexto(stripslashes($d['texto']));
-        $return[]=clone $objDto;
-        }
-      return $return;
-
-      return $this;
-    }
-
-    // Select by Id
-    public function getById($id)
-    {
-      $objDto=new NoticiasDTO();
-      $sql=sprintf('SELECT * FROM noticias WHERE codigo="%u"',$this->secsql($id));
-      $resultado=$this->execSQL($sql);
-      if($this->linhas($resultado)==1)
-      {
-      $dados=$this->dados($resultado);
-      foreach($dados as $d) {
-        $objDto->setCodigo(stripslashes($d['codigo']));
-        $objDto->setTitulo(stripslashes($d['titulo']));
-        $objDto->setTarja(stripslashes($d['tarja']));
-        $objDto->setFoto(stripslashes($d['foto']));
-        $objDto->setData(stripslashes($d['data']));
-        $objDto->setTexto(stripslashes($d['texto']));
-        $return=clone $objDto;
-      }
-      }
-      else
-      {
-        $return=NULL;
-      }
-      return $return;
-    }
-
-    // Insert
-    public function insert(NoticiasDTO $objDto)
-    {
-      $sql=sprintf('INSERT INTO noticias (codigo,titulo,tarja,foto,data,texto) VALUES ("%u","%s","%s","%s","%s","%s")',
-               $this->secsql($objDto->getCodigo()),
-               $this->secsql($objDto->getTitulo()),
-               $this->secsql($objDto->getTarja()),
-               $this->secsql($objDto->getFoto()),
-               $this->secsql($objDto->getData()),
-               $this->secsql($objDto->getTexto())              );
-      $this->execSQL($sql);
-      $objDto->setCodigo(mysql_insert_id());
-      return $objDto;
-    }
-
-    // Update
-    public function update(NoticiasDTO $objDto)
-    {
-      if(!$objDto->getCodigo())
-        throw new Exception('Valor da chave primaria invalido');
-      $sql=sprintf('UPDATE noticias SET codigo="%u", titulo="%s", tarja="%s", foto="%s", data="%s", texto="%s" WHERE codigo="%u"',
-               $this->secsql($objDto->getCodigo()),
-               $this->secsql($objDto->getTitulo()),
-               $this->secsql($objDto->getTarja()),
-               $this->secsql($objDto->getFoto()),
-               $this->secsql($objDto->getData()),
-               $this->secsql($objDto->getTexto())              );
-      $this->execSQL($sql);
-    }
-
-    // Delete
-    public function delete(NoticiasDTO $objDto)
-    {
-      if($objDto->getCodigo()==NULL)
-          throw new Exception('Valor da chave primaria invalido.');
-      $sql=sprintf('DELETE FROM noticias WHERE codigo="%u"',$this->secsql($objDto->getCodigo()));
-      $this->execSQL($sql);
-    }
-
-    // Save
-    public function save(NoticiasDTO &$objDto)
-    {
-      if($objDto->getCodigo()!== null)
-      {
-        $this->update($objDto);
-      }
-      else
-      {
-        $this->insert($objDto);
-      }
-    }
-}*/

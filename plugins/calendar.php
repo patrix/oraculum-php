@@ -12,6 +12,7 @@
         private $_weekend;
         private $_weekdaystart;
         private $_weekdayend;
+        private $_today;
         private $_showweek=FALSE;
         private $_showweekend=TRUE;
         private $_showmonth=TRUE;
@@ -22,6 +23,8 @@
         private $_divisor=' de ';
         private $_url=NULL;
         private $_domain=NULL;
+        private $_timezone='America/Sao_Paulo';
+        private $_timezoneetc=3;
 
         public function __construct() {
             $this->_year=date('Y');
@@ -80,6 +83,10 @@
             $this->_weeks=$weeks;
         }
 
+        public function settimezone($timezone=array()) {
+            $this->_timezone=$timezone;
+        }
+
         public function getmonth($m=NULL) {
             if (is_null($m)) {
                 return $this->_months[$this->_month-1];
@@ -92,6 +99,12 @@
             return $this->_listevents;
         }
 
+        public function setweekdays($days=array()) {
+            if (sizeof($days)==7) {
+                $this->_weekdays=$days;
+            }
+
+        }
         public function seturl($url=NULL) {
             $this->_url=$url;
         }
@@ -185,6 +198,7 @@
             $this->_firstdaytime=mktime(0, 0, 0, $this->_month, 1, $this->_year);
             $this->_lastdaytime=mktime(24, 0, 0, $this->_month, $this->_daysinmonth, $this->_year);
             $this->_weekstart=date('W',$this->_firstdaytime);
+            $this->_today=mktime(0, 0, 0, date('m'), date('d'), date('Y'));
             if ($this->_weekstart>=52) {
                 $this->_weekstart=0;
             }
@@ -230,10 +244,18 @@
                         $daytime=mktime(0, 0, 0, $this->_month, $day, $this->_year);
                     }
                     if ((($k!=0)&&($k!=6))||($this->_showweekend)) {
-                        if (($k==0)||($k==6)) {
-                            $calendar.='        <td class="weekend week'.$k.'">';
-                        } else {
-                            $calendar.='        <td>';
+                        if ($daytime==$this->_today) {
+                            if (($k==0)||($k==6)) {
+                                $calendar.='        <td class="weekend week'.$k.' today">';
+                            } else {
+                                $calendar.='        <td class="today">';
+                            }
+                        }else {
+                            if (($k==0)||($k==6)) {
+                                $calendar.='        <td class="weekend week'.$k.'">';
+                            } else {
+                                $calendar.='        <td>';
+                            }
                         }
                         $calendar.='            <span class="day">';
                         $calendar.=((is_null($day))||($day>$this->_daysinmonth))?'&nbsp;':$day;
@@ -263,7 +285,7 @@
             $calendar.='</table>';
             return $calendar;
         }
-        
+
         public function show() {
             echo $this->generate();
         }
@@ -284,7 +306,7 @@
                  '\\;',
                  '\\\\');
             $ical='BEGIN:VCALENDAR'."\n";
-            $ical.='X-WR-CALNAME:BlueBroward.org Calendar'."\n";
+            $ical.='X-WR-CALNAME:Agenda de Eventos (Oraculum Framework iCal Generator)'."\n";
             $ical.='PRODID:-//Oraculum//Framework iCal Generator//EN'."\n";
             $ical.='VERSION:2.0'."\n";
             $ical.='CALSCALE:GREGORIAN'."\n";
@@ -299,9 +321,10 @@
                 $desc=str_replace("\n","\n  ",$desc);
                 $desc=strip_tags($desc);
                 $ical.='BEGIN:VEVENT'."\n";
-                $ical.='DTSTAMP:'.date('Ymd').'T'.date('His')."\n";
-                $ical.='DTSTART:'.date('Ymd',$event['start']).'T'.date('His',$event['start'])."\n";
-                $ical.='DTEND:'.date('Ymd',$event['end']).'T'.date('His',$event['end'])."\n";
+                $ical.='DTSTAMP;TZID=US-Eastern:'.date('Ymd').'T'.date('His')."\n";
+                $ical.='DTSTAMP;TZID='.$this->_timezone.':'.date('Ymd').'T'.date('His')."\n";
+                $ical.='DTSTART;TZID='.$this->_timezone.':'.date('Ymd',$event['start']).'T'.date('His',$event['start']+10800)."Z\n";
+                $ical.='DTEND;TZID='.$this->_timezone.':'.date('Ymd',$event['end']).'T'.date('His',$event['end']+(($this->_timezoneetc)*3600))."Z\n";
                 $ical.='SUMMARY:'.$desc."\n";
                 $ical.='DESCRIPTION:'.$desc."\n";
                 $ical.='UID:'.date('Ymd').'T'.date('His').'-'.rand().'-'.$this->getdomain()."\n";

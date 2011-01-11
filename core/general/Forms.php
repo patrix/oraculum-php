@@ -44,7 +44,7 @@ class Oraculum_Forms
           $retorno=is_int($valor);
             break;
         case "c":
-          $retorno=verificaCPF($valor);
+          $retorno=Oraculum_Forms::verificaCPF($valor);
             break;
         case "e":
           $retorno=filter_var($valor, FILTER_VALIDATE_EMAIL);
@@ -53,7 +53,7 @@ class Oraculum_Forms
         case "E":
           $retorno=filter_var($valor, FILTER_VALIDATE_EMAIL);
           if ($retorno) {
-            $retorno=verificaEmail($valor);
+            $retorno=Oraculum_Forms::verificaEmail($valor);
           }
             break;
         case "N":

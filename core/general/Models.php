@@ -525,29 +525,6 @@ class Oraculum_Models
         }
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   public function LoadTable($table=NULL)
   {
   	if (is_null($table)) {
