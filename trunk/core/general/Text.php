@@ -107,7 +107,7 @@ class Oraculum_Text
 
   public static function inflector($palavra,$n=1,$return=true,$addnumber=true)
   {
-    $palavra=$n>1?plural($palavra):$palavra;
+    $palavra=$n>1?Oraculum_Text::plural($palavra):$palavra;
     if ($addnumber) {
         $str=$n." ".$palavra;
     } else {

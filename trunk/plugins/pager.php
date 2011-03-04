@@ -128,13 +128,14 @@ class Oraculum_Pager {
             } else {
                 $pager[]=strtr($this->_previousbtnoff, $t);
             }
-
             for($page=1;$page<=($this->_pages);$page++) {
                 $trans=array('{%page}' => $page, '{%url}' => $this->_url.$page);
-                if ($page==$this->_page)
-                    $pager[]=strtr($this->_selectedtemplate, $trans);
-                else
-                    $pager[]=strtr($this->_template, $trans);
+                if (($this->_pages>=$this->_range)&&($page>=($this->_page-$this->_range))&&($page<=($this->_page+$this->_range))) {
+                    if ($page==$this->_page)
+                        $pager[]=strtr($this->_selectedtemplate, $trans);
+                    else
+                        $pager[]=strtr($this->_template, $trans);
+                }
             }
 
 
