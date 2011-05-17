@@ -53,7 +53,7 @@ class ActiveRecord extends DBO{
             return NULL;
         }
     }
-    public function getAllByTableField($field, $value, $type='%s', $limit=NULL, $offset=NULL) {
+    public function getAllByTableField($field, $value, $type='%s', $limit=NULL, $offset=NULL, $orderby=NULL, $order='ASC') {
         $limit=(int)$limit;
         $offset=(int)$offset;
         $sqllimit=NULL;
@@ -62,6 +62,9 @@ class ActiveRecord extends DBO{
             if ($offset>0) {
                 $sqllimit.=' OFFSET '.$offset;
             }
+        }
+        if (!is_null($orderby)) {
+            $sqllimit=' ORDER BY '.$orderby.' '.$order.' '.$sqllimit;
         }
         if (is_array($value)) {
             $value='IN ('.implode(',',$value).')';
@@ -103,7 +106,9 @@ class ActiveRecord extends DBO{
             $type=(isset($values[1]))?$values[1]:'%s';
             $limit=(isset($values[2]))?$values[2]:NULL;
             $offset=(isset($values[3]))?$values[3]:NULL;
-            return $this->getAllByTableField($field, $value, $type, $limit, $offset);
+            $orderby=(isset($values[4]))?$values[4]:NULL;
+            $order=(isset($values[5]))?$values[5]:NULL;
+            return $this->getAllByTableField($field, $value, $type, $limit, $offset, $orderby, $order);
         }
     }
 
