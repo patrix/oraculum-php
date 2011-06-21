@@ -8,21 +8,20 @@
  *    @package        oraculum
  *    @subpackage     oraculum.core.text
  *    @license        http://www.opensource.org/licenses/lgpl-3.0.html (LGPLv3)
- *    @version        $Revision: 268 $
- *    @modifiedby     $LastChangedBy: Patrick $
- *    @lastmodified   $Date: 2009-04-17 15:58:09 -0300 (Sex, 17 Abr 2009) $
+ *    @version        $Revision: $
+ *    @lastmodified   $Date: 2011-06-21 15:47:09 -0300 (Sex, 17 Abr 2009) $
  *
  */
 
 class Oraculum_Text
 {
   // Converter moeda
-  public static function moeda($string,$cifrao=TRUE)
+  public static function moeda($string, $cifrao=TRUE)
   {
     $string=round($string, 2);
-    $string=number_format($string, 2, ",", ".");
+    $string=number_format($string, 2, ',', '.');
     if ($cifrao) {
-      $string=MOEDA." ".$string;
+      $string=MOEDA.' '.$string;
     }
     return $string;
   }
@@ -30,33 +29,33 @@ class Oraculum_Text
   // Converter moeda para formato SQL
   public static function moedasql($string)
   {
-    $string=str_replace(",", ".", $string);
+    $string=str_replace(',', '.', $string);
     $string=round($string, 2);
-    $string=number_format($string, 2, ".", ",");
+    $string=number_format($string, 2, '.', ',');
     $string=round($string, 2);
     return $string;
   }
 
   // Fornecer/Converter data em formato brasileiro
-  public static function data($data=null,$notnull=true)
+  public static function data($data=null, $notnull=true)
   {
     if (!is_null($data)) {
-      return date("d/m/Y", strtotime($data));
+      return date('d/m/Y', strtotime($data));
     } else if ($notnull) {
-      return date("d/m/Y");
+      return date('d/m/Y');
     } else {
       return null;
     }
   }
 
   // Fornecer/Converter data do formato brasileiro para o formato do sql
-  public static function data_sql($data=null,$notnull=true)
+  public static function data_sql($data=null, $notnull=true)
   {
     if (!is_null($data)) {
-      $data=implode("-", array_reverse(explode("/", $data)));
+      $data=implode('-', array_reverse(explode('/', $data)));
       return $data;
     } else if ($notnull) {
-      return date("Y-m-d");
+      return date('Y-m-d');
     } else {
       return null;
     }
@@ -68,48 +67,60 @@ class Oraculum_Text
   	return Oraculum_Text::data_sql($data, $notnull);
   }
 
+  // Fornecer/Converter hora em formato brasileiro
+  public static function hora($data=null, $notnull=true)
+  {
+    if (!is_null($data)) {
+      return date('H:i:s', strtotime($data));
+    } else if ($notnull) {
+      return date('H:i:s');
+    } else {
+      return null;
+    }
+  }
+  
   // Determinar o saudacao do dia
   public static function saudacao()
   {
     $hora=date('H');
     if (($hora>=6)&&($hora<12)) {
-      $saudacao="Bom Dia";
+      $saudacao='Bom Dia';
     } else if (($hora>=12)&&($hora<18)) {
-      $saudacao="Boa Tarde";
+      $saudacao='Boa Tarde';
     } else if (($hora>=18)||($hora<6)) {
-      $saudacao="Boa Noite";
+      $saudacao='Boa Noite';
     }
     return $saudacao;
   }
 
   public static function getpwd($estrutura=array())
   {
-    $pwd="<span class=\"url_pwd\">/<a href=\"".BASE_URL."/\">home</a>";
+    $pwd='<span class="url_pwd">/<a href="'.BASE_URL.'/">home</a>';
     $total=sizeof($estrutura);
     $contador=0;
     foreach ($estrutura as $link => $descricao) {
-      $pwd.="/";
+      $pwd.='/';
       if (($contador+1)==$total) {
-        $pwd.="<a href=\"".BASE_URL."/".$link."\" ";
-        $pwd.="style=\"font-weight: bold;\">\n";
+        $pwd.='<a href="'.BASE_URL.'/'.$link.'" ';
+        $pwd.='style="font-weight: bold;">';
         $pwd.=$descricao;
-        $pwd.="</a>";
+        $pwd.='</a>';
       } else {
-        $pwd.="<a href=\"".BASE_URL."/".$link."\">\n";
+        $pwd.='<a href="'.BASE_URL.'/'.$link.'">';
         $pwd.=$descricao;
-        $pwd.="</a>";
+        $pwd.='</a>';
       }
       $contador++;
     }
-    $pwd.="</span><br />";
+    $pwd.='</span><br />';
     return $pwd;
   }
 
-  public static function inflector($palavra,$n=1,$return=true,$addnumber=true)
+  public static function inflector($palavra ,$n=1, $return=true, $addnumber=true)
   {
     $palavra=$n>1?Oraculum_Text::plural($palavra):$palavra;
     if ($addnumber) {
-        $str=$n." ".$palavra;
+        $str=$n.' '.$palavra;
     } else {
         $str=$palavra;
     }
@@ -125,7 +136,7 @@ class Oraculum_Text
   {
     if (preg_match('/[sz]$/', $palavra)||
     (preg_match('/[^aeioudgkprt]h$/', $palavra))) {
-      $palavra.="es";
+      $palavra.='es';
     } else if (preg_match('/[^aeiou]y$/', $palavra)) {
       $palavra=substr_replace($palavra, 'ies', -1);
     } else if (preg_match('/[x]$/', $palavra)) {
@@ -140,7 +151,7 @@ class Oraculum_Text
     } else if (preg_match('/[l]$/', $palavra)) {
       $palavra=substr_replace($palavra, 'is', -1);
     } else if (preg_match('/[rnsz]$/', $palavra)) {
-      $palavra.="es";
+      $palavra.='es';
     } else {
       $palavra.='s';
     }
@@ -151,20 +162,20 @@ class Oraculum_Text
     public static function removeacentos($string)
     {
 	    $acentos=array(
-	        "A"=>"/[".chr(194).chr(192).chr(193).chr(196).chr(195)."]/",
-	        "E"=>"/[".chr(202).chr(200).chr(201).chr(203)."]/",
-	        "I"=>"/[".chr(206).chr(205).chr(204).chr(207)."]/",
-	        "O"=>"/[".chr(212).chr(213).chr(210).chr(211).chr(214)."]/",
-	        "U"=>"/[".chr(219).chr(217).chr(218).chr(220)."]/",
-	        "C"=>"/[".chr(199)."]/",
-	        "N"=>"/[".chr(209)."]/",
-	        "a"=>"/[".chr(226).chr(227).chr(224).chr(225).chr(228)."]/",
-	        "e"=>"/[".chr(234).chr(232).chr(233).chr(235)."]/",
-	        "i"=>"/[".chr(238).chr(237).chr(236).chr(239)."]/",
-	        "o"=>"/[".chr(244).chr(245).chr(242).chr(243).chr(246)."]/",
-	        "u"=>"/[".chr(251).chr(250).chr(249).chr(252)."]/",
-	        "c"=>"/[".chr(231)."]/",
-	        "n"=>"/[".chr(241)."]/"
+	        'A'=>"/[".chr(194).chr(192).chr(193).chr(196).chr(195)."]/",
+	        'E'=>"/[".chr(202).chr(200).chr(201).chr(203)."]/",
+	        'I'=>"/[".chr(206).chr(205).chr(204).chr(207)."]/",
+	        'O'=>"/[".chr(212).chr(213).chr(210).chr(211).chr(214)."]/",
+	        'U'=>"/[".chr(219).chr(217).chr(218).chr(220)."]/",
+	        'C'=>"/[".chr(199)."]/",
+	        'N'=>"/[".chr(209)."]/",
+	        'a'=>"/[".chr(226).chr(227).chr(224).chr(225).chr(228)."]/",
+	        'e'=>"/[".chr(234).chr(232).chr(233).chr(235)."]/",
+	        'i'=>"/[".chr(238).chr(237).chr(236).chr(239)."]/",
+	        'o'=>"/[".chr(244).chr(245).chr(242).chr(243).chr(246)."]/",
+	        'u'=>"/[".chr(251).chr(250).chr(249).chr(252)."]/",
+	        'c'=>"/[".chr(231)."]/",
+	        'n'=>"/[".chr(241)."]/"
 	    );
         return preg_replace(array_values($acentos), array_keys($acentos), $string);
     }
@@ -179,6 +190,6 @@ class Oraculum_Text
     }
     public static function lang($constant, $autoreturn=true)
     {
-        return Oraculum_Text::t("LANG_".strtoupper($constant), $autoreturn);
+        return Oraculum_Text::t('LANG_'.strtoupper($constant), $autoreturn);
     }
 }
