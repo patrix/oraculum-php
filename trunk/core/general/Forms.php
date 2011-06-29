@@ -8,15 +8,15 @@
  *    @package        oraculum
  *    @subpackage     oraculum.core.forms
  *    @license        http://www.opensource.org/licenses/lgpl-3.0.html (LGPLv3)
- *    @version        $Revision: 247 $
+ *    @version        $Revision: $
  *    @modifiedby     $LastChangedBy: Patrick $
- *    @lastmodified   $Date: 2009-04-16 11:44:46 -0300 (Qui, 16 Abr 2009) $
+ *    @lastmodified   $Date: 2011-06-21 16:10:46 -0300 (Ter, 21 Jun 2011) $
  *
  */
 
 class Oraculum_Forms
 {
-  public static function validar($valor=null,$tipo="s",$notnull=false)
+  public static function validar($valor=null, $tipo='s', $notnull=false)
   {
     /*
      * Tipos:
@@ -34,43 +34,43 @@ class Oraculum_Forms
     } else {
       switch($tipo)
       {
-        case "s":
+        case 's':
           $retorno=is_string($valor);
             break;
-        case "n":
+        case 'n':
           $retorno=is_numeric($valor);
             break;
-        case "i":
+        case 'i':
           $retorno=is_int($valor);
             break;
-        case "c":
+        case 'c':
           $retorno=Oraculum_Forms::verificaCPF($valor);
             break;
-        case "e":
+        case 'e':
           $retorno=filter_var($valor, FILTER_VALIDATE_EMAIL);
           $retorno=($retorno===false)?false:true;
             break;
-        case "E":
+        case 'E':
           $retorno=filter_var($valor, FILTER_VALIDATE_EMAIL);
           if ($retorno) {
             $retorno=Oraculum_Forms::verificaEmail($valor);
           }
             break;
-        case "N":
+        case 'N':
           $retorno=is_null($valor);
             break;
-        case "d":
+        case 'd':
           $valor=trim($valor);
-          if (strpos($valor, " ")) {
-            $valor=explode(" ", $valor);
+          if (strpos($valor, ' ')) {
+            $valor=explode(' ', $valor);
             $valor=$valor[0];
           }
-          if (strpos($valor, "/")) {
-            $data=explode("/", $valor);
-          } else if (strpos($valor, "-")) {
-            $data=explode("-", $valor);
-          } else if (strpos($valor, ".")) {
-            $data=explode(".", $valor);
+          if (strpos($valor, '/')) {
+            $data=explode('/', $valor);
+          } else if (strpos($valor, '-')) {
+            $data=explode('-', $valor);
+          } else if (strpos($valor, '.')) {
+            $data=explode('.', $valor);
           } else {
             return false;
           }
@@ -116,7 +116,7 @@ class Oraculum_Forms
         $s=$s.$ch;
       }
     }
-    if ((strlen($s)==11)&&($cpf!="00000000000")&&($cpf!="99999999999")) {
+    if ((strlen($s)==11)&&($cpf!='00000000000')&&($cpf!='99999999999')) {
       $somaA=(int)($s[0]*10);
       $somaA=$somaA+($s[1]*9);
       $somaA=$somaA+($s[2]*8);
@@ -153,10 +153,10 @@ class Oraculum_Forms
   public static function verificaEmail($email)
   {
     // Verifica se o e-mail e valido
-    if (strpos($email, "@")) {
-      $e=explode("@", $email); // Transforma o email em array.
+    if (strpos($email, '@')) {
+      $e=explode('@', $email); // Transforma o email em array.
       if (count($e)==2) {
-        if (strpos($e[1], ".")) {
+        if (strpos($e[1], '.')) {
           $check=checkdnsrr($e[1]);
         } else {
           $check=false;

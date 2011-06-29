@@ -1,16 +1,16 @@
 <?php
 /**
- * Tratamento de logs
+ * Tratamento de parametros HTTP
  *
  *
  *    @filesource     $HeadURL:  $
  *    @category       Framework
  *    @package        oraculum
- *    @subpackage     oraculum.core.logs
+ *    @subpackage     oraculum.core.http
  *    @license        http://www.opensource.org/licenses/lgpl-3.0.html (LGPLv3)
- *    @version        $Revision: 269 $
+ *    @version        $Revision: $
  *    @modifiedby     $LastChangedBy: Patrick $
- *    @lastmodified   $Date: 2009-04-17 17:35:03 -0300 (Sex, 17 Abr 2009) $
+ *    @lastmodified   $Date: 2011-06-21 16:11:56 -0300 (Ter, 21 Jun 2011) $
  *
  */
 

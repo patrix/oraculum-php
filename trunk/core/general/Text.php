@@ -78,7 +78,19 @@ class Oraculum_Text
       return null;
     }
   }
-  
+ 
+  // Fornecer/Converter data e hora em formato brasileiro
+  public static function datahora($data=null, $notnull=true)
+  {
+    if (!is_null($data)) {
+      return date('d/m/Y H:i:s', strtotime($data));
+    } else if ($notnull) {
+      return date('d/m/Y H:i:s');
+    } else {
+      return null;
+    }
+  }
+
   // Determinar o saudacao do dia
   public static function saudacao()
   {
