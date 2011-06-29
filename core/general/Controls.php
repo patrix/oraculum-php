@@ -44,10 +44,10 @@ class Oraculum_Controls
                 } elseif (file_exists($pagefile)) {
                         include_once($pagefile);
                 } elseif(file_exists($errorpage)) {
-                        //header("HTTP/1.1 404 Not Found");
+                        //header('HTTP/1.1 404 Not Found');
                         include_once($errorpage);
                 } else {
-                        header("HTTP/1.1 404 Not Found");
+                        header('HTTP/1.1 404 Not Found');
                         throw new Exception('[Erro CGC48] Pagina nao encontrada ('.$pagefile.') ');
                 }
                 if (class_exists($class)) {

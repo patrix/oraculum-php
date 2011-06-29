@@ -4,29 +4,24 @@
 
 class Oraculum_Exception extends Exception
 {
-    public function __construct($message, $code=NULL)
-    {
+    public function __construct($message, $code=NULL) {
         parent::__construct($message, $code);
     }
 
-    public function __toString()
-    {
-        return "Code: " . $this->getCode() . "<br />Message: " . htmlentities($this->getMessage());
+    public function __toString() {
+        return 'Code: ' . $this->getCode() . '<br />Message: ' . htmlentities($this->getMessage());
     }
 
-    public function getException()
-    {
+    public function getException() {
         echo $this;
     }
 
-    public static function getStaticException($exception)
-    {
+    public static function getStaticException($exception) {
          $exception->getException();
     }
 
-    public static function showException($e)
-    {
-		Oraculum::Load('Logs');
+    public static function showException($e) {
+	Oraculum::Load('Logs');
         $filecode=NULL;
         $message=$e->getMessage();
         $code=$e->getCode();
@@ -79,9 +74,8 @@ class Oraculum_Exception extends Exception
         $report='<div style=\'float:left;text-align:left;\'>'.$report.'</div>';
         Oraculum_Logs::alert($report);
     }
-    public static function showError($code=NULL,$message=NULL,$file=NULL,$line=NULL,$context=null)
-    {
-		Oraculum::Load('Logs');
+    public static function showError($code=NULL, $message=NULL, $file=NULL, $line=NULL, $context=null) {
+	Oraculum::Load('Logs');
         $filecode=NULL;
         $report='<h1>'.$message.'</h1>';
         $report.='<strong>Error Code:</strong> #'.$code.'<br />';

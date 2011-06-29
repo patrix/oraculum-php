@@ -1,4 +1,18 @@
 <?php
+/**
+ * Tratamento de parametros HTTP
+ *
+ *
+ *    @filesource     $HeadURL:  $
+ *    @category       Framework
+ *    @package        oraculum
+ *    @subpackage     oraculum.core.frontcontroller
+ *    @license        http://www.opensource.org/licenses/lgpl-3.0.html (LGPLv3)
+ *    @version        $Revision: $
+ *    @modifiedby     $LastChangedBy: Patrick $
+ *    @lastmodified   $Date: 2011-06-21 16:11:40 -0300 (Ter, 21 Jun 2011) $
+ *
+ */
 Oraculum::Load('Request');
 class Oraculum_FrontController
 {
@@ -9,9 +23,9 @@ class Oraculum_FrontController
 		if (!defined('URL')) {
 			define('URL', $url);
 			$gets=Oraculum_Request::gets();
-			$base=(count(explode("/", URL))-2);
+			$base=(count(explode('/', URL))-2);
 			$base=strpos($gets[$base], '.php')?$base+2:$base;
-			define("BASE", $base);
+			define('BASE', $base);
 		}
 		return $this;
 	}

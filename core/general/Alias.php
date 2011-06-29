@@ -82,6 +82,7 @@
 				  Oraculum_Alias::AddAlias('moedasql', 'Oraculum_Text::moedasql');
 				  Oraculum_Alias::AddAlias('data', 'Oraculum_Text::data');
 				  Oraculum_Alias::AddAlias('data_mysql', 'Oraculum_Text::data_mysql');
+				  Oraculum_Alias::AddAlias('hora', 'Oraculum_Text::hora');
 				  Oraculum_Alias::AddAlias('saudacao', 'Oraculum_Text::saudacao');
 				  Oraculum_Alias::AddAlias('getpwd', 'Oraculum_Text::getpwd');
 				  Oraculum_Alias::AddAlias('inflector', 'Oraculum_Text::inflector');
