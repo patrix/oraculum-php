@@ -21,7 +21,7 @@
     public static function execSQL($sql, $showsql=false)
     {
         if ($showsql) {
-            echo "<br />SQL: <pre>".$sql."</pre>";
+            echo '<br />SQL: <pre>'.$sql.'</pre>';
         }
         try {
             return self::$connection->query($sql);
@@ -40,17 +40,17 @@
     }
     public function start()
     {
-      $this->execSQL("begin");
+      $this->execSQL('begin');
     }
 
     public function commit()
     {
-      $this->execSQL("commit");
+      $this->execSQL('commit');
     }
 
     public function rollback()
     {
-      $this->execSQL("rollback");
+      $this->execSQL('rollback');
     }
 
     public static function dados($query)
@@ -63,7 +63,7 @@
     {
         return $query->rowCount();
         var_dump($query);
-        return $query->query("SELECT FOUND_ROWS()")->fetchColumn();
+        return $query->query('SELECT FOUND_ROWS()')->fetchColumn();
       return mysql_num_rows($query);
     }
   }

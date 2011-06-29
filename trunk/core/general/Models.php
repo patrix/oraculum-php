@@ -99,7 +99,7 @@ class Oraculum_Models
         }
     }
 
-    public function LoadModelClass($model='all', $type='AR') {
+    public function LoadModelClass($model='all', $type='AR', $key='codigo') {
         if (!is_null($model)) {
             if ($model=='all') {
                 if ($type=='DO') {
@@ -134,7 +134,7 @@ class Oraculum_Models
                     if (file_exists($modelfile)) {
                         include_once($modelfile);
                     } else {
-                        if (!$this->LoadDinamicModelClass($model)) {
+                        if (!$this->LoadDinamicModelClass($model, $key)) {
                             throw new Exception('[Erro CGM93] Modelo nao encontrado ('.$modelfile.') ');
                         }
                     }
