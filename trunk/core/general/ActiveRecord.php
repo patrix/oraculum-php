@@ -245,8 +245,13 @@ class ActiveRecord extends DBO{
                 if (!is_null($fields)) {
                     $eval.=',';
                 }
-                $eval.=$field.'="%s" ';
-                $fields.='$this->secsql($this->'.$field.'),';
+                if (is_null($value)) {
+                    $eval.=$field.'=NULL ';
+                    $fields.='';
+                } else {
+                    $eval.=$field.'="%s" ';
+                    $fields.='$this->secsql($this->'.$field.'),';
+                }
             }
         }
         $eval.='WHERE '.$this->_key[0].'="%u"';
