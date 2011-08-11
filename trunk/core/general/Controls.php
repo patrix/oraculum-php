@@ -3,14 +3,14 @@
  * Tratamento de Views
  *
  *
- *    @filesource     $HeadURL: $
+ *    @filesource     $HeadURL$
  *    @category       Framework
  *    @package        oraculum
  *    @subpackage     oraculum.core.controls
  *    @license        http://www.opensource.org/licenses/lgpl-3.0.html (LGPLv3)
- *    @version        $Revision:  $
- *    @modifiedby     $LastChangedBy: Patrick $
- *    @lastmodified   $Date:  $
+ *    @version        $Revision$
+ *    @modifiedby     $LastChangedBy$
+ *    @lastmodified   $Date$
  *
  */
 

@@ -3,14 +3,14 @@
  * Oraculum's Core
  *
  *
- *    @filesource     $HeadURL:  $
+ *    @filesource     $HeadURL$
  *    @category       Framework
  *    @package        oraculum
  *    @subpackage     oraculum.core
  *    @license        http://www.opensource.org/licenses/lgpl-3.0.html (LGPLv3)
- *    @version        $Revision: 247 $
- *    @modifiedby     $LastChangedBy: Patrick $
- *    @lastmodified   $Date: 2009-04-16 11:44:46 -0300 (Qui, 16 Abr 2009) $
+ *    @version        $Revision$
+ *    @modifiedby     $LastChangedBy$
+ *    @lastmodified   $Date$
  *
  */
 class Oraculum
