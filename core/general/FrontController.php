@@ -3,14 +3,14 @@
  * Tratamento de parametros HTTP
  *
  *
- *    @filesource     $HeadURL:  $
+ *    @filesource     $HeadURL$
  *    @category       Framework
  *    @package        oraculum
  *    @subpackage     oraculum.core.frontcontroller
  *    @license        http://www.opensource.org/licenses/lgpl-3.0.html (LGPLv3)
- *    @version        $Revision: $
- *    @modifiedby     $LastChangedBy: Patrick $
- *    @lastmodified   $Date: 2011-06-21 16:11:40 -0300 (Ter, 21 Jun 2011) $
+ *    @version        $Revision$
+ *    @modifiedby     $LastChangedBy$
+ *    @lastmodified   $Date$
  *
  */
 Oraculum::Load('Request');

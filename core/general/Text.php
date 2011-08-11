@@ -3,13 +3,13 @@
  * Tratamento de informacoes textuais
  *
  *
- *    @filesource     $HeadURL:  $
+ *    @filesource     $HeadURL$
  *    @category       Framework
  *    @package        oraculum
  *    @subpackage     oraculum.core.text
  *    @license        http://www.opensource.org/licenses/lgpl-3.0.html (LGPLv3)
- *    @version        $Revision: $
- *    @lastmodified   $Date: 2011-06-21 15:47:09 -0300 (Sex, 17 Abr 2009) $
+ *    @version        $Revision$
+ *    @lastmodified   $Date$
  *
  */
 

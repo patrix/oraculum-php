@@ -3,14 +3,14 @@
  * Tratamento de formularios
  *
  *
- *    @filesource     $HeadURL:  $
+ *    @filesource     $HeadURL$
  *    @category       Framework
  *    @package        oraculum
  *    @subpackage     oraculum.core.forms
  *    @license        http://www.opensource.org/licenses/lgpl-3.0.html (LGPLv3)
- *    @version        $Revision: $
- *    @modifiedby     $LastChangedBy: Patrick $
- *    @lastmodified   $Date: 2011-06-21 16:10:46 -0300 (Ter, 21 Jun 2011) $
+ *    @version        $Revision$
+ *    @modifiedby     $LastChangedBy$
+ *    @lastmodified   $Date$
  *
  */
 

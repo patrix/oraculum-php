@@ -2,13 +2,13 @@
 /**
  * Captcha
  *
- *    @filesource     $HeadURL:  $
+ *    @filesource     $HeadURL$
  *    @category       Components
  *    @package        oraculum
  *    @subpackage     oraculum.components.captcha
- *    @version        $Revision: 253 $
- *    @modifiedby     $LastChangedBy: Patrick $
- *    @lastmodified   $Date: 2009-04-16 12:50:21 -0300 (Qui, 16 Abr 2009) $
+ *    @version        $Revision$
+ *    @modifiedby     $LastChangedBy$
+ *    @lastmodified   $Date$
  */
 class Oraculum_Captcha
 {
