@@ -23,14 +23,14 @@ class Oraculum_Request
         }
     }
   // Receber variaveis por $_POST
-  public static function post($indice,$tipo="s")
+  public static function post($indice,$tipo='s')
   {
-    if ((isset($_POST[$indice]))&&($_POST[$indice]!="")) {
+    if ((isset($_POST[$indice]))&&($_POST[$indice]!='')) {
       $valor=$_POST[$indice];
-      if ($tipo!="h") {
+      if ($tipo!='h') {
         $valor=strip_tags($valor);
         $valor=htmlentities($valor);
-      } else if ($tipo=="n") {
+      } else if ($tipo=='n') {
       	$valor=floor($valor);
 		if ($valor==0) {
 			$valor=null;
@@ -43,9 +43,9 @@ class Oraculum_Request
   }
 
   // Receber variaveis por $_GET
-  public static function get($indice,$tipo="s")
+  public static function get($indice,$tipo='s')
   {
-    if ((isset($_GET[$indice]))&&($_GET[$indice]!="")) {
+    if ((isset($_GET[$indice]))&&($_GET[$indice]!='')) {
       $valor=$_GET[$indice];
     } else {
       $valor=null;
@@ -53,7 +53,7 @@ class Oraculum_Request
     $valor=strip_tags($valor);
     $valor=htmlentities($valor);
     $valor=addslashes($valor);
-    if ($tipo=="n") {
+    if ($tipo=='n') {
       $valor=floor($valor);
       if ($valor==0) {
         $valor=null;
@@ -65,7 +65,7 @@ class Oraculum_Request
   // Receber variaveis por $_FILES
   public static function file($indice, $atributo=null, $filter=null)
   {
-    if ((isset($_FILES[$indice]))&&($_FILES[$indice]!="")) {
+    if ((isset($_FILES[$indice]))&&($_FILES[$indice]!='')) {
       $file=$_FILES[$indice];
       if (($file['error']==0)&&(!is_null($filter))) {
       	$filter=Oraculum_Files::file_filter($file['type'], $filter);
@@ -156,7 +156,7 @@ class Oraculum_Request
     $pagina=null;
     foreach ($gets as $chave=>$valor) {
       if ($chave>1) {
-        if ($gets[$chave-1]=="page") {
+        if ($gets[$chave-1]=='page') {
           $pagina=$valor;
         }
       }
@@ -200,18 +200,17 @@ class Oraculum_Request
   public static function gets()
   {
     $request=Oraculum_Request::request();
-    //$gets=explode("/", str_replace(strrchr($request, "?"), "/", $request));
-    $gets=explode("/", str_replace("?", "/", $request));
+    $gets=explode('/', str_replace('?', '/', $request));
     return $gets;
   }
   public static function request()
   {
-    return $_SERVER["REQUEST_URI"];
+    return $_SERVER['REQUEST_URI'];
   }
   public static function referer()
   {
-    if (isset($_SERVER["HTTP_REFERER"])) {
-        return $_SERVER["HTTP_REFERER"];
+    if (isset($_SERVER['HTTP_REFERER'])) {
+        return $_SERVER['HTTP_REFERER'];
     } else {
         return NULL;
     }
