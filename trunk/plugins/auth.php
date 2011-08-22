@@ -12,6 +12,7 @@
         private $_user=NULL;
         private $_password=NULL;
         private $_crypttype='md5';
+        private $_crypttypes=array('md5','sha1');
         private $_key=NULL;
         private $_register=NULL;
         private $_fields=array();
@@ -119,6 +120,14 @@
                         } else {
                             return false;
                         }
+                    } elseif ($this->_crypttype=='sha1') {
+                        if ($register->$passwordfield==sha1($this->_password)) {
+                            $this->_key=$register->$keyfield;
+                            $this->_register=$register;
+                            return true;
+                        } else {
+                            return false;
+                        }
                     } else {
                         if ($register->$passwordfield==$this->_password) {
                             $this->_key=$register->$keyfield;
@@ -159,5 +168,10 @@
             } else {
                 return false;
             }
+        }
+        public function setCrypttype($type) {
+            if (in_array($type, $this->_crypttypes)) {
+                $this->_crypttype=$type;
+            }   
         }
     }
