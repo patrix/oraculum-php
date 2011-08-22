@@ -19,7 +19,7 @@ class Oraculum_Request
     public static function defineTmpDir($dir='/tmp/')
     {
         if (!defined('TMP_DIR')) {
-                define('TMP_DIR', $dir);
+            define('TMP_DIR', $dir);
         }
     }
   // Receber variaveis por $_POST
@@ -60,6 +60,42 @@ class Oraculum_Request
       }
     }
     return $valor;
+  }
+  
+  // Desconvertendo para UTF8 valores passados por $_POST
+  public static function postutf8decode(){
+      foreach ($_POST as $key=>$value):
+          if(mb_detect_encoding($value)=='UTF-8'):
+              $_POST[$key]=utf8_decode($value);
+          endif;
+      endforeach;
+  }
+  
+  // Convertendo para UTF8 valores passados por $_POST
+  public static function postutf8encode(){
+      foreach ($_POST as $key=>$value):
+          if(mb_detect_encoding($value)!='UTF-8'):
+              $_POST[$key]=utf8_encode($value);
+          endif;
+      endforeach;
+  }
+  
+  // Desconvertendo para UTF8 valores passados por $_GET
+  public static function getutf8decode(){
+      foreach ($_GET as $key=>$value):
+          if(mb_detect_encoding($value)=='UTF-8'):
+              $_GET[$key]=utf8_decode($value);
+          endif;
+      endforeach;
+  }
+  
+  // Convertendo para UTF8 valores passados por $_GET
+  public static function getutf8encode(){
+      foreach ($_GET as $key=>$value):
+          if(mb_detect_encoding($value)!='UTF-8'):
+              $_GET[$key]=utf8_encode($value);
+          endif;
+      endforeach;
   }
 
   // Receber variaveis por $_FILES
