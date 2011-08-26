@@ -130,7 +130,7 @@ class Oraculum_Pager {
             }
             for($page=1;$page<=($this->_pages);$page++) {
                 $trans=array('{%page}' => $page, '{%url}' => $this->_url.$page);
-                if (($this->_pages>=$this->_range)&&($page>=($this->_page-$this->_range))&&($page<=($this->_page+$this->_range))) {
+                if (($page>=($this->_page-$this->_range))&&($page<=($this->_page+$this->_range))) {
                     if ($page==$this->_page)
                         $pager[]=strtr($this->_selectedtemplate, $trans);
                     else
