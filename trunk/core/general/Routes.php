@@ -21,7 +21,7 @@ class Oraculum_Routes
   public static function add($origem, $destino)
   {
     $request=Oraculum_Request::request();
-    $_SERVER["REQUEST_URI"]=str_replace($origem, $destino, $request);
+    $_SERVER['REQUEST_URI']=str_replace($origem, $destino, $request);
   }
   public static function check()
   {
