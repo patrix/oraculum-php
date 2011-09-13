@@ -29,7 +29,7 @@ class Oraculum_Test extends Oraculum
     public static function pqp()
     {
     	if (((int)DEBUG)&&(PROFILER)) {
-	    	define("DIR_PQP","./library/components/pqp/");
+	    	define('DIR_PQP','./library/plugins/pqp/');
 	    	require_once(DIR_PQP.'classes/PhpQuickProfiler.php');
 	    	return new PhpQuickProfiler(PhpQuickProfiler::getMicroTime());
     	} else {
@@ -46,7 +46,7 @@ class Oraculum_Test extends Oraculum
     public function profile($classname, $methodname, $methodargs, $invocations = 1)
     {
         if (class_exists($classname)!=TRUE) {
-            throw new Exception("{$classname} doesn't exist");
+            throw new Exception($classname.' nao existe');
         }
 
         $method=new ReflectionMethod($classname, $methodname);
@@ -64,17 +64,17 @@ class Oraculum_Test extends Oraculum
             $durations[] = microtime(true)-$start;
         }
 
-        $duration["total"]=round(array_sum($durations), 4);
-        $duration["average"]=round($duration["total"]/count($durations), 4);
-        $duration["worst"]=round(max($durations), 4);
+        $duration['total']=round(array_sum($durations), 4);
+        $duration['average']=round($duration["total"]/count($durations), 4);
+        $duration['worst']=round(max($durations), 4);
 
-        $this->_details=array(  "class" => $classname,
-                                "method" => $methodname,
-                                "arguments" => $methodargs,
-                                "duration" => $duration,
-                                "invocations" => $invocations);
+        $this->_details=array(  'class' => $classname,
+                                'method' => $methodname,
+                                'arguments' => $methodargs,
+                                'duration' => $duration,
+                                'invocations' => $invocations);
 
-        return $duration["average"];
+        return $duration['average'];
     }
 
     /**
@@ -82,8 +82,8 @@ class Oraculum_Test extends Oraculum
      */
     private function invokedMethod()
     {
-        return "{$this->_details["class"]}::{$this->_details["method"]}(" .
-             join(", ", $this->_details["arguments"]) . ")";
+        return $this->_details['class'].'::'.$this->_details['method'].
+             join(', ', $this->_details['arguments']) . ')';
     }
 
     /**
@@ -92,15 +92,15 @@ class Oraculum_Test extends Oraculum
     public function printDetails()
     {
         $methodString=$this->invokedMethod();
-        $numInvoked=$this->_details["invocations"];
+        $numInvoked=$this->_details['invocations'];
 
         if ($numInvoked==1) {
-            echo "{$methodString} took {$this->details["duration"]["average"]}s\n";
+            echo $methodString.' took '.$this->details['duration']['average'].'s'."\n";
         } else {
-            echo "{$methodString} was invoked {$numInvoked} times\n";
-            echo "Total duration:   {$this->details["duration"]["total"]}s\n";
-            echo "Average duration: {$this->details["duration"]["average"]}s\n";
-            echo "Worst duration:   {$this->details["duration"]["worst"]}s\n";
+            echo $methodString.' was invoked '.$numInvoked.' times'."\n";
+            echo 'Total duration:   '.$this->details['duration']['total'].'s'."\n";
+            echo 'Average duration: '.$this->details['duration']['average'].'s'."\n";
+            echo 'Worst duration:   '.$this->details['duration']['worst'].'s'."\n";
         }
     }
 }
