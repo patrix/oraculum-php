@@ -51,7 +51,7 @@ class Oraculum_Mail
             $text.="    </div>";
             $text.="  </body>\n";
             $text.="</html>";
-            require_once("plugins/phpmailer/class.phpmailer.php");
+            include_once(dirname(__FILE__).'/phpmailer/class.phpmailer.php');
             $mail=new PHPMailer();
             $mail->SetLanguage("br");
             $mail->CharSet="utf-8";
