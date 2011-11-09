@@ -65,7 +65,11 @@ class Oraculum_Mail
             $mail->Username=$this->_user; // Usuario Autenticador
             $mail->Password=$this->_password; // Senha do usuario (nao usar ou divulgar).
             //$mail->IsMail();
-            $mail->SMTPDebug=0;
+            if (defined('MAILDEBUG')):
+                $mail->SMTPDebug=MAILDEBUG;
+            else:
+                $mail->SMTPDebug=0;
+            endif;
             if ((int)$this->_smtpport>0) {
                 $mail->Port=(int)$this->_smtpport;
             }
