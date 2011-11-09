@@ -9,8 +9,12 @@
         private $_keyfield=NULL;
         private $_userfield=NULL;
         private $_passwordfield=NULL;
+        private $_emailfield=NULL;
+        private $_cryptkeyfield=NULL;
         private $_user=NULL;
         private $_password=NULL;
+        private $_email=NULL;
+        private $_cryptkey=NULL;
         private $_crypttype='md5';
         private $_crypttypes=array('md5','sha1');
         private $_key=NULL;
@@ -94,6 +98,16 @@
                 $this->_passwordfield=$passwordfield;
             }
         }
+        public function setDbEmailField($emailfield=NULL) {
+            if (!is_null($emailfield)) {
+                $this->_emailfield=$emailfield;
+            }
+        }
+        public function setDbCryptkeyField($cryptkeyfield=NULL) {
+            if (!is_null($cryptkeyfield)) {
+                $this->_cryptkeyfield=$cryptkeyfield;
+            }
+        }
         public function setUser($user=NULL) {
             if (!is_null($user)) {
                 $this->_user=$user;
@@ -102,6 +116,16 @@
         public function setPassword($pass=NULL) {
             if (!is_null($pass)) {
                 $this->_password=$pass;
+            }
+        }
+        public function setEmail($email=NULL) {
+            if (!is_null($email)) {
+                $this->_email=$email;
+            }
+        }
+        public function setCryptkey($cryptkey=NULL) {
+            if (!is_null($cryptkey)) {
+                $this->_cryptkey=$cryptkey;
             }
         }
         public function DbAuth(){
@@ -136,6 +160,31 @@
                             return false;
                         }
                     }
+                }
+            } else {
+                throw new Exception('Para autenticacao atraves de base de dados deve ser passada uma instancia relacionada a uma entidade do banco');
+            }
+        }
+        public function PasswordlessAuth($clearkey=TRUE){
+            if (is_object($this->_dbobj)) {
+                $cryptfield=$this->_cryptkeyfield;
+                $getcryptfield='getBy'.ucwords($this->_cryptkeyfield);
+                $keyfield=$this->_keyfield;
+                $obj=$this->_dbobj;
+                $register=$obj->$getcryptfield($this->_cryptkey);
+                if (sizeof($register)==1) {
+                    $key=Oraculum_Crypt::strdcrypt($this->_cryptkey);
+                    $key=explode('::', $key);
+                    $time=$key[0];
+                    $timeout=$key[2];
+                    $auth=(time()<$time+$timeout);
+                    if (($auth)&&($clearkey)){
+                        $register->$cryptfield=NULL;
+                        $register->save();
+                    }
+                    return $auth;
+                } else {
+                    return FALSE;
                 }
             } else {
                 throw new Exception('Para autenticacao atraves de base de dados deve ser passada uma instancia relacionada a uma entidade do banco');
