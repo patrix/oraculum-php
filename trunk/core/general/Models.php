@@ -134,7 +134,7 @@ class Oraculum_Models
                     if (file_exists($modelfile)) {
                         include_once($modelfile);
                     } else {
-                        if (!$this->LoadDinamicModelClass($model, $key)) {
+                        if (!$this->LoadDynamicModelClass($model, $key)) {
                             throw new Exception('[Erro CGM93] Modelo nao encontrado ('.$modelfile.') ');
                         }
                     }
@@ -143,7 +143,7 @@ class Oraculum_Models
         }
         return $this;
     }
-    public function LoadDinamicModelClass($model=NULL, $key='id') {
+    public function LoadDynamicModelClass($model=NULL, $key='id') {
         if (!is_null($model)) {
             $class=ucwords($model);
             if (!class_exists($class)) {
@@ -161,6 +161,14 @@ class Oraculum_Models
         }
         return $this;
     }
+    
+    /*
+     * This function was changed to LoadDynamicModelClass cause the old name was wrong
+     */
+    public function LoadDinamicModelClass($model=NULL, $key='id') {
+        return $this->LoadDynamicModelClass($mode, $key);
+    }
+    
     public function PDO()
     {
         if (extension_loaded('pdo')) {
