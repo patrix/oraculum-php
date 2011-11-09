@@ -99,7 +99,7 @@ class Oraculum_Models
         }
     }
 
-    public function LoadModelClass($model='all', $type='AR', $key='codigo') {
+    public function LoadModelClass($model='all', $type='AR', $key='id') {
         if (!is_null($model)) {
             if ($model=='all') {
                 if ($type=='DO') {
@@ -143,7 +143,7 @@ class Oraculum_Models
         }
         return $this;
     }
-    public function LoadDinamicModelClass($model=NULL, $key='codigo') {
+    public function LoadDinamicModelClass($model=NULL, $key='id') {
         if (!is_null($model)) {
             $class=ucwords($model);
             if (!class_exists($class)) {
