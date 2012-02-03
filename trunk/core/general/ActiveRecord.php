@@ -340,7 +340,11 @@ class ActiveRecord extends DBO{
                 // Validando Tipos
                 $types='['.implode('|', $this->_types).']';
                 preg_match($types, $field['Type'], $type);
-                preg_match('/[0-9]+/', $field['Type'], $size);
+                if ($type[0]!='enum'):
+                    preg_match('/[0-9]+/', $field['Type'], $size);
+                else:
+                    $size[0]=0;
+                endif;
                 switch ($type):
                     case ($type=='int')||($type=='smallint')||($type=='mediumint')||($type=='bigint')||($type=='bit')||($type=='timestamp'):
                         $this->_fields[$field['Field']]=(int)$this->_fields[$field['Field']];
@@ -351,7 +355,10 @@ class ActiveRecord extends DBO{
                 endswitch;
                 
                 // Validando Tamanho. Caso exceda o limite o valor é truncado
-                if (isset($size[0])):
+                if ((isset($size[0]))&&($size[0]>0)):
+                    if ($field['Field']=='TAMANHO'){
+                        alert($size[0]);
+                    }
                     if ((strlen($this->_fields[$field['Field']]))>$size[0]):
                         $this->_fields[$field['Field']]=substr($this->_fields[$field['Field']], 0, $size[0]);
                     endif;
