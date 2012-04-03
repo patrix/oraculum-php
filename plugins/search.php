@@ -18,14 +18,18 @@ class Oraculum_Search extends DBO {
 
     public function search($param) {
         $i = 0;
-        $aux = "";
         $config = $this->config;
-        while (list($key, $val) = each($this->config)) {
+        while (list($key, $val) = each($config)) {
+            $aux = "";
             $campos = explode(',', $config[$key]['campos']);
             for ($j = 0; $j < sizeof($campos); $j++) {
-                $aux += "";
+                $aux .= $campos[$j] . " like '%$param%'";
+                if (($j + 1) < sizeof($campos)) {
+                    $aux .= " OR ";
+                }
             }
-            $sql[$i] = "select * from $key where ";
+            echo $sql[$i] = "select * from $key where $aux" . '<br/>';
+            $i++;
         }
     }
 
