@@ -2,7 +2,12 @@
 
 class Oraculum_Search extends DBO {
 
-    private $config = NULL;
+    private $_config = NULL;
+    private $_param = '';
+    private $_classes = array();
+    private $_urls = array();
+    private $_fields = array();
+    private $_results = array();
 
     public function __construct() {
         
@@ -10,13 +15,31 @@ class Oraculum_Search extends DBO {
 
     public function config($conf) {
         if (is_array($conf)) {
-            $this->config = $conf;
+            $this->_config = $conf;
         } else {
             throw new Exception('[Erro] A variável de configuração tem que ser um Array[tabela][campos]=campo1,campo2');
         }
     }
 
-    public function search($param) {
+    public function search() {
+    
+      foreach ($this->_classes as $k=>$classe):
+        if (sizeof($this->_fields[$k])>0):
+          foreach($this->_fields[$k] as $field):
+            $data=$classe->__call('getAllBy'.$field, array('%'.$this->_param.'%'));
+            $result['field']=$field;
+            $result['key']=$k;
+            $result['data']=$data;
+            $result['class']=get_class($classe);
+            $this->_results[]=$result;
+          endforeach;
+        endif;
+        
+      endforeach;
+      return $this->_results;
+    }
+    
+    /*public function search($param) {
         $i = 0;
         $config = $this->config;
         while (list($key, $val) = each($this->config)) {
@@ -31,6 +54,39 @@ class Oraculum_Search extends DBO {
             echo $sql[$i] = "select * from $key where $aux" . '<br/>';
             $i++;
         }
+    }*/
+    
+    public function AddClass($obj=ActiveRecord, $fields=array(), $url='') {
+      $this->_classes[]=$obj;
+      $this->_urls[]=$url;
+      $this->_fields[]=$fields;
+    }
+    
+    public function SetSearch($param) {
+      $this->_param=$param;
     }
 
 }
+
+/*
+EXEMPLO DE USO
+<?php
+    Oraculum::Load('DBO');
+    Oraculum_Plugins::Load('search');
+    
+    $db=new Oraculum_Models(MODEL_NAME);
+    $db->LoadModelClass('paginas');
+    $paginas=new Paginas;
+    
+    $config['paginas']['titulo']='';
+    $search=new Oraculum_Search();
+    $search->AddClass($paginas, array('titulo'));
+    $search->SetSearch(getvar('search'));
+    $results=$search->search();
+    foreach($results as $k=>$result):
+        $registros=$result['data'];
+        foreach($registros as $registro):
+            echo $registro->titulo;
+            echo '<hr />';
+        endforeach;
+    endforeach;*/
