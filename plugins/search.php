@@ -1,5 +1,15 @@
 <?php
-
+/******************************
+ * TO-DO: (criado por Patrick)
+ * - Incluir logica que caso nao seja informado o segundo
+ *   parametro do metodo AddClasse, busque em todos os campos
+ * - Incluir opcao de usar o plugin de paginacao automaticamente
+ * - Incluir logica de retornar mais coisas, como URL personalizada
+ *   por pagina, etc
+ * - Incluir opcao de destacar a palavra buscada nos resultados de
+ *   forma personalizavel (cor, negrito, etc)
+ * - Incluir atributo informando o numero de resultados encontrados
+ ******************************/
 class Oraculum_Search extends DBO {
 
     private $_config = NULL;
