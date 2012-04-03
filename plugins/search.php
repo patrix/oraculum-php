@@ -19,7 +19,7 @@ class Oraculum_Search extends DBO {
     public function search($param) {
         $i = 0;
         $config = $this->config;
-        while (list($key, $val) = each($config)) {
+        while (list($key, $val) = each($this->config)) {
             $aux = "";
             $campos = explode(',', $config[$key]['campos']);
             for ($j = 0; $j < sizeof($campos); $j++) {
