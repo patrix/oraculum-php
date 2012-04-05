@@ -35,12 +35,19 @@ class Oraculum_Search extends DBO {
     
       foreach ($this->_classes as $k=>$classe):
         if (sizeof($this->_fields[$k])>0):
+          $url=$this->_urls[$k];
           foreach($this->_fields[$k] as $field):
-            $data=$classe->__call('getAllBy'.$field, array('%'.$this->_param.'%'));
+            $data=$classe->{'getAllBy'.$field}('%'.$this->_param.'%');
+            //if (sizeof($data)>0):
+            //  foreach($data as $d):
+            //    
+            //  endforeach;
+            //endif;
             $result['field']=$field;
             $result['key']=$k;
             $result['data']=$data;
             $result['class']=get_class($classe);
+            $result['url']=str_replace('{%%}', $data'',$url);
             $this->_results[]=$result;
           endforeach;
         endif;
@@ -66,7 +73,7 @@ class Oraculum_Search extends DBO {
         }
     }*/
     
-    public function AddClass($obj=ActiveRecord, $fields=array(), $url='') {
+    public function AddClass($obj=ActiveRecord, $fields=array(), $url=array()) {
       $this->_classes[]=$obj;
       $this->_urls[]=$url;
       $this->_fields[]=$fields;
