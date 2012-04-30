@@ -312,6 +312,9 @@ class ActiveRecord extends DBO{
             return $this->_keyvalue;
         }
     }
+    public function getFieldList() {
+      return $this->_fields;
+    }
     public function secsql($string) {
       //$string=mysql_real_escape_string($string, self::$connection);
       $string=addslashes($string);
