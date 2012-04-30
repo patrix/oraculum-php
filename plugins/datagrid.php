@@ -1,11 +1,10 @@
 <?php
   class Oraculum_Datagrid {
-    
     private $_table=array();
     private $_grid=NULL;
     private $_showactions=true;
     private $_actions=array('delete', 'update');
-    private $_actionstitle='A&ccedil;&otilde;es';
+    private $_actionstitle='Actions';
     private $_deleteurl='delete/%id%';
     private $_updateurl='update/%id%';
     private $_tableclass='';
@@ -19,7 +18,6 @@
     public function __construct($table=array()) {
       $this->_table=$table;
     }
-    
     public function generate() {
       if (sizeof($this->_table)>0):
         foreach ($this->_table as $reg):
@@ -71,7 +69,6 @@
       endif;
       return $this->_grid;        
     }
-    
     public function setTableClasse($class) {
       $this->_tableclass=$class;
     }
@@ -100,73 +97,3 @@
       $this->_adicionalactionhtml=$html;
     }
   }
-      
-  /*    
-      
-  <table class="table table-bordered table-striped">
-    <thead>
-      <tr>
-        <th>
-          C&oacute;digo
-        </th>
-        <th>
-          Usu&aacute;rio
-        </th>
-        <th>
-          E-mail
-        </th>
-        <th>
-          Permiss&otilde;es
-        </th>
-        <th style="width:180px; text-align:center;">A&ccedil;&otilde;es</th>
-      </tr>
-    </thead>
-    <tbody>
-      <?php foreach ($this->_table as $reg): ?>
-        <tr>
-          <td>
-            <code><?php echo $reg->idusuario; ?></code>
-          </td>
-          <td>
-            <?php echo $reg->login; ?>
-          </td>
-          <td>
-            <?php echo $reg->email; ?>
-          </td>
-          <td>
-            <?php echo $reg->permissao; ?>
-          </td>
-          <td style="width:180px; text-align:center;">
-            <a href="" class="btn btn-primary"><i class="icon-pencil icon-white"></i> Alterar</a>
-            <a href="#myModal" class="btn btn-danger" data-toggle="modal"><i class="icon-remove icon-white"></i> Excluir</a>
-
-          <div id="myModal" class="modal hide fade">
-            <div class="modal-header">
-              <button class="close" data-dismiss="modal">&times;</button>
-              <h3>Confirma&ccedil;&atilde;o</h3>
-            </div>
-            <div class="modal-body">
-              <p>Voc&ecirc; tem certeza que quer remover este registro?</p>
-            </div>
-            <div class="modal-footer">
-              <a href="<?php echo URL; ?>usuarios/excluir/<?php echo $reg->idusuario; ?>" class="btn btn-primary">OK</a>
-              <a href="#" class="btn" data-dismiss="modal" >Cancelar</a>
-            </div>
-          </div>
-          </td>
-        </tr>
-      <?php endforeach; ?>
-    </tbody>
-  </table>
-    }
-    
-  }
-    
-    
-    */
-    
-    
-    
-    
-    
-    
