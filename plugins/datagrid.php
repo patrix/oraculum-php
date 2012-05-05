@@ -7,6 +7,8 @@
     private $_actionstitle='Actions';
     private $_deleteurl='delete/%id%';
     private $_updateurl='update/%id%';
+    private $_aditionaldeletelink='';
+    private $_aditionalupdatelink='';
     private $_tableclass='';
     private $_updateclass='';
     private $_deleteclass='';
@@ -53,9 +55,9 @@
             if ($this->_showactions):
               $this->_grid.='<td>';
               if (in_array('update', $this->_actions))
-                $this->_grid.='<a href="'.str_replace('%id%', $id, $this->_updateurl).'" class="'.$this->_updateclass.'">'.$this->_updatelabel.'</a> ';
+                $this->_grid.='<a href="'.str_replace('%id%', $id, $this->_updateurl).'" class="'.$this->_updateclass.'" '.$this->_aditionalupdatelink.'>'.$this->_updatelabel.'</a> ';
               if (in_array('delete', $this->_actions))
-                $this->_grid.='<a href="'.str_replace('%id%', $id, $this->_deleteurl).'" class="'.$this->_deleteclass.'" data-toggle="modal">'.$this->_deletelabel.'</a>';
+                $this->_grid.='<a href="'.str_replace('%id%', $id, $this->_deleteurl).'" class="'.$this->_deleteclass.'" '.$this->_aditionaldeletelink.'>'.$this->_deletelabel.'</a>';
               $this->_grid.=str_replace('%id%', $id, $this->_adicionalactionhtml);
               $this->_grid.='</td>';
             endif;
@@ -83,6 +85,12 @@
     }
     public function setUpdateUrl($url) {
       $this->_updateurl=$url;
+    }
+    public function setAditionalHTMLDeleteLink($html) {
+      $this->_aditionaldeletelink=$html;
+    }
+    public function setAditionalHTMLUpdateLink($html) {
+      $this->_aditionalupdatelink=$html;
     }
     public function setDeleteLabel($label) {
       $this->_deletelabel=$label;
