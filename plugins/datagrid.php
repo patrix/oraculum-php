@@ -71,13 +71,13 @@
       endif;
       return $this->_grid;        
     }
-    public function setTableClasse($class) {
+    public function setTableClass($class) {
       $this->_tableclass=$class;
     }
-    public function setUpdateClasse($class) {
+    public function setUpdateClass($class) {
       $this->_updateclass=$class;
     }
-    public function setDeleteClasse($class) {
+    public function setDeleteClass($class) {
       $this->_deleteclass=$class;
     }
     public function setDeleteUrl($url) {
