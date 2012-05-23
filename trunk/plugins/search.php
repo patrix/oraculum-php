@@ -4,8 +4,6 @@
  * - Incluir logica que caso nao seja informado o segundo
  *   parametro do metodo AddClasse, busque em todos os campos
  * - Incluir opcao de usar o plugin de paginacao automaticamente
- * - Incluir logica de retornar mais coisas, como URL personalizada
- *   por pagina, etc
  * - Incluir opcao de destacar a palavra buscada nos resultados de
  *   forma personalizavel (cor, negrito, etc)
  * - Incluir atributo informando o numero de resultados encontrados
@@ -38,16 +36,12 @@ class Oraculum_Search extends DBO {
           $url=$this->_urls[$k];
           foreach($this->_fields[$k] as $field):
             $data=$classe->{'getAllBy'.$field}('%'.$this->_param.'%');
-            //if (sizeof($data)>0):
-            //  foreach($data as $d):
-            //    
-            //  endforeach;
-            //endif;
             $result['field']=$field;
             $result['key']=$k;
             $result['data']=$data;
             $result['class']=get_class($classe);
-            $result['url']=str_replace('{%%}', $data'',$url);
+            $result['url']=preg_replace("#(.*){%(.*?)%}(.*)#", '$2', $url);
+            $result['url']=$data[0]->$result['url'];
             $this->_results[]=$result;
           endforeach;
         endif;
@@ -55,23 +49,6 @@ class Oraculum_Search extends DBO {
       endforeach;
       return $this->_results;
     }
-    
-    /*public function search($param) {
-        $i = 0;
-        $config = $this->config;
-        while (list($key, $val) = each($this->config)) {
-            $aux = "";
-            $campos = explode(',', $config[$key]['campos']);
-            for ($j = 0; $j < sizeof($campos); $j++) {
-                $aux .= $campos[$j] . " like '%$param%'";
-                if (($j + 1) < sizeof($campos)) {
-                    $aux .= " OR ";
-                }
-            }
-            echo $sql[$i] = "select * from $key where $aux" . '<br/>';
-            $i++;
-        }
-    }*/
     
     public function AddClass($obj=ActiveRecord, $fields=array(), $url=array()) {
       $this->_classes[]=$obj;
@@ -84,26 +61,3 @@ class Oraculum_Search extends DBO {
     }
 
 }
-
-/*
-EXEMPLO DE USO
-<?php
-    Oraculum::Load('DBO');
-    Oraculum_Plugins::Load('search');
-    
-    $db=new Oraculum_Models(MODEL_NAME);
-    $db->LoadModelClass('paginas');
-    $paginas=new Paginas;
-    
-    $config['paginas']['titulo']='';
-    $search=new Oraculum_Search();
-    $search->AddClass($paginas, array('titulo'));
-    $search->SetSearch(getvar('search'));
-    $results=$search->search();
-    foreach($results as $k=>$result):
-        $registros=$result['data'];
-        foreach($registros as $registro):
-            echo $registro->titulo;
-            echo '<hr />';
-        endforeach;
-    endforeach;*/
