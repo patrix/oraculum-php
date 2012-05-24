@@ -29,7 +29,6 @@
         		} else {
 	        		return NULL;
         		}
-		
 		}
 		public static function getVars() {
         		$instance=self::getInstance();

@@ -1,12 +1,12 @@
 <?php
 /**
- * Tratamento de formularios
+ * Validacoes
  *
  *
  *    @filesource     $HeadURL$
  *    @category       Framework
  *    @package        oraculum
- *    @subpackage     oraculum.core.forms
+ *    @subpackage     oraculum.core.validate
  *    @license        http://www.opensource.org/licenses/lgpl-3.0.html (LGPLv3)
  *    @version        $Revision$
  *    @modifiedby     $LastChangedBy$
@@ -14,7 +14,7 @@
  *
  */
 
-class Oraculum_Forms
+class Oraculum_Validate
 {
   public static function validar($valor=null, $tipo='s', $notnull=false)
   {

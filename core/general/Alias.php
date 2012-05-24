@@ -7,16 +7,15 @@
 	{
 		public static function AddAlias($newfunction, $originalfunction) {
 			if (function_exists($newfunction)) {
-				throw new Exception('[Erro CGA11] A funcao \''.$newfunction.'\' ja existe');
+				throw new Exception('[Erro CGA10] A funcao \''.$newfunction.'\' ja existe');
 			} elseif (!is_callable($originalfunction)) {
-				throw new Exception('[Erro CGA11] A funcao \''.$originalfunction.'\' nao pode ser chamada');
+				throw new Exception('[Erro CGA12] A funcao \''.$originalfunction.'\' nao pode ser chamada');
 			} else {
 				eval('function '.$newfunction.'() {
 					$args=func_get_args();
 					return call_user_func_array(\''.$originalfunction.'\',$args);
 				       }');
 			}
-	
 		}
 		
 		public static function LoadAlias($class) {

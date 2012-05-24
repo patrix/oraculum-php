@@ -14,26 +14,12 @@
 		public static function LoadControl() {
 			Oraculum::Load('Controls');
 			return new Oraculum_Controls();
-
 		}
 
 		public static function LoadModel($model) {
 			Oraculum::Load('Models');
 			return new Oraculum_Models($model);
-
 		}
-
-		/*public function CreateView() {
-
-		}
-
-		public function CreateControl() {
-
-		}
-
-		public function CreateModel() {
-
-		}*/
 
 		public function View() {
 			Oraculum::Load('Views');
@@ -54,7 +40,7 @@
 			if (file_exists($dir)) {
 				define('CONTROL_DIR', $dir);
 			} else {
-				throw new Exception('[Erro CAA51] Diretorio nao encontrado ('.$dir.')');
+				throw new Exception('[Erro CAA43] Diretorio nao encontrado ('.$dir.')');
 			}
 		}
 
@@ -62,7 +48,7 @@
 			if (file_exists($dir)) {
 				define('VIEW_DIR', $dir);
 			} else {
-				throw new Exception('[Erro CAA59] Diretorio nao encontrado ('.$dir.')');
+				throw new Exception('[Erro CAA51] Diretorio nao encontrado ('.$dir.')');
 			}
 		}
 
@@ -70,10 +56,9 @@
 			if (file_exists($dir)) {
 				define('MODEL_DIR', $dir);
 			} else {
-				throw new Exception('[Erro CAA67] Diretorio nao encontrado ('.$dir.')');
+				throw new Exception('[Erro CAA59] Diretorio nao encontrado ('.$dir.')');
 			}
 		}
-
 
 		public function FrontController() {
 			Oraculum::Load('FrontController');

@@ -1,10 +1,6 @@
 <?php
-/*Oraculum::Load('Models');
-Oraculum::Load('DBO');*/
 class ActiveRecord extends DBO{
     private $_fields=array();
-    /*protected $_fields = array();
-    protected $_keyField = null;*/
     protected $_className=NULL;
     protected $_tableName=NULL;
     protected $_key=array('id');
@@ -169,7 +165,7 @@ class ActiveRecord extends DBO{
         if (array_key_exists($name, $this->_fields)) {
             return $this->_fields[$name];
         } else {
-            throw new Exception('[Erro CGAR48] Campo \''.$name.'\' inexistente');
+            throw new Exception('[Erro CGAR168] Campo \''.$name.'\' inexistente');
         }
     }
     
