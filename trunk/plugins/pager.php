@@ -138,7 +138,6 @@ class Oraculum_Pager {
                 }
             }
 
-
             $t=array('{%url}' => $this->_url.$this->getNextPage());
             if (($this->_page!=$this->_nextpage)&&(!is_null($this->_nextpage))) {
                 $pager[]=strtr($this->_nextbtn, $t);
@@ -161,7 +160,6 @@ class Oraculum_Pager {
         } else {
             return NULL;
         }
-
     }
     public function reverse() {
         $this->_reverse=!(bool)$this->_reverse;

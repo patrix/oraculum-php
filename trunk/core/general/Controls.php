@@ -1,6 +1,6 @@
 <?php
   /**
-  * Tratamento de Views
+  * Tratamento de Controladores
   *
   *
   *    @filesource     $HeadURL$
@@ -28,7 +28,7 @@
     public function LoadPage($page=NULL, $url=NULL, $usetemplate=false)
     {
       if (is_null($page)) {
-        throw new Exception ('[Erro CGC32] Pagina nao informada');
+        throw new Exception ('[Erro CGC31] Pagina nao informada');
         } else {
         $pagefile=CONTROL_DIR.'/pages/'.$page.'.php';
         $urlfile=CONTROL_DIR.'/pages/'.$url.'.php';
@@ -47,7 +47,7 @@
           include_once($errorpage);
         } else {
           header('HTTP/1.1 404 Not Found');
-          throw new Exception('[Erro CGC51] Pagina nao encontrada ('.$pagefile.') ');
+          throw new Exception('[Erro CGC50] Pagina nao encontrada ('.$pagefile.') ');
         }
         if (class_exists($class)) {
           new $class;
@@ -59,13 +59,13 @@
     public static function LoadHelper($helper=NULL)
     {
       if (is_null($helper)) {
-        throw new Exception ('[Erro CGC63] Helper nao informado');
+        throw new Exception ('[Erro CGC62] Helper nao informado');
       } else {
         $helperfile=CONTROL_DIR.'/helpers/'.$helper.'.php';
         if (file_exists($helperfile)) {
           include_once($helperfile);
         } else {
-          throw new Exception('[Erro CGC69] Helper nao encontrado ('.$helperfile.') ');
+          throw new Exception('[Erro CGC68] Helper nao encontrado ('.$helperfile.') ');
         }
       }
     }
