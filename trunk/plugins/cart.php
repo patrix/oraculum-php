@@ -45,3 +45,4 @@ class Oraculum_Cart extends DBO {
         $this->_class = $obj;
         $this->_fields[] = $fields;
     }
+}
