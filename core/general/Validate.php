@@ -3,14 +3,14 @@
  * Validacoes
  *
  *
- *    @filesource     $HeadURL$
+ *    @filesource     $HeadURL: https://oraculum-php.googlecode.com/svn/trunk/core/general/Forms.php $
  *    @category       Framework
  *    @package        oraculum
  *    @subpackage     oraculum.core.validate
  *    @license        http://www.opensource.org/licenses/lgpl-3.0.html (LGPLv3)
- *    @version        $Revision$
- *    @modifiedby     $LastChangedBy$
- *    @lastmodified   $Date$
+ *    @version        $Revision: 90 $
+ *    @modifiedby     $LastChangedBy: Patrixsbs $
+ *    @lastmodified   $Date: 2012-05-24 13:46:17 -0300 (qui, 24 mai 2012) $
  *
  */
 
