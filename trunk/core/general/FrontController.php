@@ -56,6 +56,8 @@ class Oraculum_FrontController
 		if ($url=='') {
 			$url=$this->_defaulturl;
 		}
+                if(!$page)
+                    $page=$this->_defaulturl;
 		Oraculum_App::LoadControl()->LoadPage($page, $url);
 	}
 }
