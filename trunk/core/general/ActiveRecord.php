@@ -5,6 +5,8 @@ class ActiveRecord extends DBO{
     protected $_tableName=NULL;
     protected $_key=array('id');
     protected $_keyvalue=array();
+    protected $_filterQuery=array();
+    protected $_validateMsg=NULL;
     protected $_types=array('tinyint',
                             'smallint',
                             'mediumint',
@@ -46,19 +48,19 @@ class ActiveRecord extends DBO{
                             'geometrycollection');
 
     public function __construct($class=NULL) {
-        if (!is_null($class)) {
+        if (!is_null($class)):
             $this->_className=$class;
             $this->_tableName=strtolower($class);
-        }
+        endif;
         return $this;
     }
     
     public function getLines($limit=NULL) {
         $limit=(int)$limit;
         $query='SELECT count(*) as \'count\' FROM '.$this->_tableName;
-        if ($limit>0) {
+        if ($limit>0):
             $query.=' LIMIT '.$limit;
-        }
+        endif;
         $rows=$this->execSQL($query);
         $lines=$this->fetch($rows);
         return (int)$lines[0]->count;
@@ -68,16 +70,17 @@ class ActiveRecord extends DBO{
         $limit=(int)$limit;
         $offset=(int)$offset;
         $query='SELECT * FROM '.$this->_tableName;
-        if (!is_null($orderby)) {
+        $query.=' WHERE '.implode(' AND ', $this->_filterQuery);
+        if (!is_null($orderby)):
             $query.=' ORDER BY '.$orderby.' '.$order;
-        }
-        if ($limit>0) {
+        endif;
+        if ($limit>0):
             $query.=' LIMIT '.$limit;
-            if ($offset>0) {
+            if ($offset>0):
                 $query.=' OFFSET '.$offset;
-            }
-        }
-        $rows=$this->execSQL($query);
+            endif;
+        endif;
+        $rows=$this->execSQL($query, true, true);
         return $this->fetch($rows);
     }
     
@@ -86,17 +89,17 @@ class ActiveRecord extends DBO{
         $fields=NULL;
         $eval='$query=sprintf(\'SELECT * FROM '.$this->_tableName.' ';
         $eval.='ORDER BY '.$this->_key[0].' ASC\');';
-        if ($debug) {
+        if ($debug):
             echo $eval;
-        }
+        endif;
         eval($eval);
         $rows=$this->execSQL($query);
         $rows=$this->fetch($rows);
-        if (sizeof($rows)>0) {
+        if (sizeof($rows)>0):
             return $rows[0];
-        } else {
+        else:
             return NULL;
-        }
+        endif;
     }
     
     public function getLast($debug=FALSE) {
@@ -104,129 +107,137 @@ class ActiveRecord extends DBO{
         $fields=NULL;
         $eval='$query=sprintf(\'SELECT * FROM '.$this->_tableName.' ';
         $eval.='ORDER BY '.$this->_key[0].' DESC\');';
-        if ($debug) {
+        if ($debug):
             echo $eval;
-        }
+        endif;
         eval($eval);
         $rows=$this->execSQL($query);
         $rows=$this->fetch($rows);
-        if (sizeof($rows)>0) {
+        if (sizeof($rows)>0):
             return $rows[0];
-        } else {
+        else:
             return NULL;
-        }
+        endif;
     }
     
     public function getByTableField($field, $value, $type='%s') {
         $query=sprintf('SELECT * FROM '.$this->_tableName.' WHERE '.$field.'="'.$type.'" LIMIT 1',$this->secsql($value));
         $rows=$this->execSQL($query);
         $rows=$this->fetch($rows);
-        if (sizeof($rows)>0) {
+        if (sizeof($rows)>0):
             return $rows[0];
-        } else {
+        else:
             return NULL;
-        }
+        endif;
     }
     
     public function getAllByTableField($field, $value, $type='%s', $limit=NULL, $offset=NULL) {
         $limit=(int)$limit;
         $offset=(int)$offset;
         $sqllimit=NULL;
-        if ($limit>0) {
+        if ($limit>0):
             $sqllimit='LIMIT '.$limit;
-            if ($offset>0) {
+            if ($offset>0):
                 $sqllimit.=' OFFSET '.$offset;
-            }
-        }
-        if (is_array($value)) {
+            endif;
+        endif;
+        if (is_array($value)):
             $value='IN ('.implode(',',$value).')';
             $query=sprintf('SELECT * FROM '.$this->_tableName.' WHERE '.$field.' '.$type.' '.$sqllimit, $this->secsql($value));
-        } else {
-            if (stripos($value, '%')!==FALSE) {
+        else:
+            if (stripos($value, '%')!==FALSE):
                 $query=sprintf('SELECT * FROM '.$this->_tableName.' WHERE '.$field.' LIKE "'.$type.'" '.$sqllimit, $this->secsql($value));
-            } else {
+            else:
                 $query=sprintf('SELECT * FROM '.$this->_tableName.' WHERE '.$field.'="'.$type.'" '.$sqllimit, $this->secsql($value));
-            }
-        }
+            endif;
+        endif;
         $rows=$this->execSQL($query);
         $rows=$this->fetch($rows);
         return $rows;
     }
     
+    public function filterByTableField($field, $value, $type='%s') {
+        $this->_filterQuery[]=sprintf(''.$field.'="'.$type.'"', $this->secsql($value));
+        return $this;
+    }
+    
     public function __set($name, $value) {
-        if (!is_null($value)) {
+        if (!is_null($value)):
             $this->_fields[$name]=$value;
-        } else {
+        else:
             $this->_fields[$name]=NULL;
-        }
+        endif;
     }
     
     public function __get($name) {
-        if (array_key_exists($name, $this->_fields)) {
+        if (array_key_exists($name, $this->_fields)):
             return $this->_fields[$name];
-        } else {
+        else:
             throw new Exception('[Erro CGAR168] Campo \''.$name.'\' inexistente');
-        }
+        endif;
     }
     
     public function __call($name, $values) {
-        if (stripos($name, 'getBy')!==FALSE) {
+        if (stripos($name, 'getBy')!==FALSE):
             $field=strtolower(str_replace('getBy', '',$name));
             $value=(isset($values[0]))?$values[0]:NULL;
             $type=(isset($values[1]))?$values[1]:'%s';
             return $this->getByTableField($field, $value, $type);
-        } elseif (stripos($name, 'getAllBy')!==false) {
+        elseif (stripos($name, 'getAllBy')!==false):
             $field=strtolower(str_replace('getAllBy', '',$name));
             $value=(isset($values[0]))?$values[0]:NULL;
             $type=(isset($values[1]))?$values[1]:'%s';
             $limit=(isset($values[2]))?$values[2]:NULL;
             $offset=(isset($values[3]))?$values[3]:NULL;
             return $this->getAllByTableField($field, $value, $type, $limit, $offset);
-        }
+        elseif (stripos($name, 'filterBy')!==FALSE):
+            $field=strtolower(str_replace('filterBy', '',$name));
+            $value=(isset($values[0]))?$values[0]:NULL;
+            $type=(isset($values[1]))?$values[1]:'%s';
+            return $this->filterByTableField($field, $value, $type);
+        endif; 
     }
 
     public function fetch($rows) {
         $return=array();
-        foreach($rows as $row) {
+        foreach($rows as $row):
             $obj=new self($this->_className);
-            if (!empty($this->_key)) {
+            if (!empty($this->_key)):
                 $obj->setKey($this->_key);
-            }
-            foreach ($row as $field=>$value) {
-
-                if (!is_integer($field)) {
+            endif;
+            foreach ($row as $field=>$value):
+                if (!is_integer($field)):
                     $obj->$field=$value;
-                }
-            }
+                endif;
+            endforeach;
             $return[]=clone $obj;
-        }
+        endforeach;
         return $return;
     }
 
-    public function insert($debug=FALSE)
-    {
+    public function insert($debug=FALSE) {
         $values=NULL;
         $fields=NULL;
         $eval='$query=sprintf(\'INSERT INTO '.$this->_tableName.' ';
-        if (sizeof($this->_fields)>0) {
-            foreach ($this->_fields as $field=>$value) {
-                if (is_null($values)) {
+        if (sizeof($this->_fields)>0):
+            foreach ($this->_fields as $field=>$value):
+                if (is_null($values)):
                     $eval.='(';
-                } else {
+                else:
                     $eval.=',';
                     $values.=',';
                     $fields.=',';
-                }
+                endif;
                 $eval.=$field;
                 $values.='"%s"';
                 $fields.='$this->secsql($this->'.$field.')';
-            }
-        }
+            endforeach;
+        endif;
         $eval.=')';
         $eval.=' VALUES ('.$values.')\','.$fields.');';
-        if ($debug) {
+        if ($debug):
             echo $eval;
-        }
+        endif;
         eval($eval);
         $this->execSQL($query, $debug);
         $this->_keyvalue=array($this->getInsertId());
@@ -236,26 +247,26 @@ class ActiveRecord extends DBO{
     public function update($debug=FALSE) {
         $fields=NULL;
         $eval='$query=sprintf(\'UPDATE '.$this->_tableName.' SET ';
-        if (sizeof($this->_fields)>0) {
-            foreach ($this->_fields as $field=>$value) {
-                if (!is_null($fields)) {
+        if (sizeof($this->_fields)>0):
+            foreach ($this->_fields as $field=>$value):
+                if (!is_null($fields)):
                     $eval.=',';
-                }
-                if (is_null($value)) {
+                endif;
+                if (is_null($value)):
                     $eval.=$field.'=NULL ';
                     $fields.='';
-                } else {
+                else:
                     $eval.=$field.'="%s" ';
                     $fields.='$this->secsql($this->'.$field.'),';
-                }
-            }
-        }
+                endif;
+            endforeach;
+        endif;
         $eval.='WHERE '.$this->_key[0].'="%u"';
         $fields.='$this->secsql('.$this->_keyvalue[0].')';
         $eval.='\','.$fields.');';
-        if ($debug) {
+        if ($debug):
             echo $eval;
-        }
+        endif;
         eval($eval);
         $this->execSQL($query, $debug);
         $this->_keyvalue=array($this->getInsertId());
@@ -269,23 +280,29 @@ class ActiveRecord extends DBO{
         $eval.='WHERE '.$this->_key[0].'="%u"';
         $fields.='$this->secsql('.$this->_keyvalue[0].')';
         $eval.='\','.$fields.');';
-        if ($debug) {
+        if ($debug):
             echo $eval;
-        }
+        endif;
         eval($eval);
         $this->execSQL($query);
         return $this;
     }
     
     public function save($validate=TRUE, $exception=TRUE, $debug=FALSE) {
-        if ($validate)
-            $this->validate($exception);
-        $this->updateKeyValue();
-        if (!empty($this->_keyvalue)) {
-            $this->update($debug);
-        } else {
-            $this->insert($debug);
-        }
+        $valid=TRUE;
+        if ($validate):
+            $valid=$this->validate($exception);
+        endif;
+        if ($valid):
+            $this->updateKeyValue();
+            if (!empty($this->_keyvalue)):
+                return $this->update($debug);
+            else:
+                return $this->insert($debug);
+            endif;
+        else:
+            return FALSE;
+        endif;
     }
 
     public function setKey($key=array('id')) {
@@ -295,21 +312,24 @@ class ActiveRecord extends DBO{
 
     public function updateKeyValue() {
         $this->_keyvalue=array();
-        foreach($this->_key as $key) {
-            if (isset($this->_fields[$key])) {
+        foreach($this->_key as $key):
+            if (isset($this->_fields[$key])):
                 $this->_keyvalue[]=$this->_fields[$key];
-            }
-        }
+            endif;
+        endforeach;
     }
     public function getKeyValue($index=NULL) {
-        if (!is_null($index)) {
+        if (!is_null($index)):
             return $this->_keyvalue[$index];
-        } else {
+        else:
             return $this->_keyvalue;
-        }
+        endif;
     }
     public function getFieldList() {
       return $this->_fields;
+    }
+    public function getValidateMsg() {
+      return $this->_validateMsg;
     }
     public function secsql($string) {
       //$string=mysql_real_escape_string($string, self::$connection);
@@ -328,7 +348,8 @@ class ActiveRecord extends DBO{
             // Validando NOT NULLs
             if (($field['Extra']!='auto_increment')&&($field['Default']=='')&&(($field['Null']=='NO'))):
                 if ($emptyfield):
-                    $valid=false;
+                    $valid=FALSE;
+                    $this->_validateMsg='Campo \''.$field['Field'].'\' n&atilde;o foi preenchido';
                     if ($exception):
                         throw new Exception('Campo \''.$field['Field'].'\' n&atilde;o foi preenchido');
                     endif;
@@ -355,9 +376,9 @@ class ActiveRecord extends DBO{
                 
                 // Validando Tamanho. Caso exceda o limite o valor é truncado
                 if ((isset($size[0]))&&($size[0]>0)):
-                    if ($field['Field']=='TAMANHO'){
+                    if ($field['Field']=='TAMANHO'):
                         alert($size[0]);
-                    }
+                    endif;
                     if ((strlen($this->_fields[$field['Field']]))>$size[0]):
                         $this->_fields[$field['Field']]=substr($this->_fields[$field['Field']], 0, $size[0]);
                     endif;
@@ -374,9 +395,13 @@ class ActiveRecord extends DBO{
         endforeach;
         foreach ($this->_fields as $field=>$value):
             if (!in_array($field, $realfieldlist)):
-                throw new Exception('Campo \''.$field.'\' n&atilde;o encontrado na entidade \''.$this->_tableName.'\'');
+                $valid=FALSE;
+                $this->_validateMsg='Campo \''.$field.'\' n&atilde;o encontrado na entidade \''.$this->_tableName.'\'';
+                if ($exception):
+                    throw new Exception('Campo \''.$field.'\' n&atilde;o encontrado na entidade \''.$this->_tableName.'\'');
+                endif;
             endif;
-                    
         endforeach;
+        return $valid;
     }
 }
