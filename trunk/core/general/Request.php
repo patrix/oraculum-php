@@ -243,6 +243,10 @@ class Oraculum_Request
   {
     return $_SERVER['REQUEST_URI'];
   }
+  public static function requestmethod()
+  {
+    return $_SERVER['REQUEST_METHOD'];
+  }
   public static function referer()
   {
     if (isset($_SERVER['HTTP_REFERER'])) {
