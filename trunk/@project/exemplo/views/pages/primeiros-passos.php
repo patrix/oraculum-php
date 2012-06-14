@@ -10,7 +10,7 @@ vers&atilde;o est&aacute;vel dispon&iacute;vel no site do projeto.<br />
 Atualmente o mesmo est&aacute; dispon&iacute;vel no endere&ccedil;o
 <a href="http://oraculumframework.org/">http://oraculumframework.org/</a><br />
 <br />
-Os requisitos par
+Os requisitos para
 instalar e utilizar o Oraculum Framework s&atilde;o os seguintes:<br />
 </p>
 <ul style="text-align:left; width:70%; margin:auto;">
