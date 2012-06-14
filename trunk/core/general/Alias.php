@@ -56,14 +56,14 @@
 				  Oraculum_Alias::AddAlias('ip', 'Oraculum_HTTP::ip');
 				  Oraculum_Alias::AddAlias('host', 'Oraculum_HTTP::host');
 			}
-			if (($class=='Forms')||($class=='All')) {
-				Oraculum::Load('Forms');
+			if (($class=='Validate')||($class=='All')) {
+				Oraculum::Load('Validate');
 				/**********************************
 				 * Tratamento de formularios
 				 **********************************/
-				  Oraculum_Alias::AddAlias('validar', 'Oraculum_Forms::validar');
-				  Oraculum_Alias::AddAlias('verificaCPF', 'Oraculum_Forms::verificaCPF');
-				  Oraculum_Alias::AddAlias('verificaEmail', 'Oraculum_Forms::verificaEmail');
+				  Oraculum_Alias::AddAlias('validar', 'Oraculum_Validate::validar');
+				  Oraculum_Alias::AddAlias('verificaCPF', 'Oraculum_Validate::verificaCPF');
+				  Oraculum_Alias::AddAlias('verificaEmail', 'Oraculum_Validate::verificaEmail');
 			}
 			if (($class=='Views')||($class=='All')) {
 				Oraculum::Load('Views');
