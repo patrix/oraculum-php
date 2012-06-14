@@ -159,7 +159,11 @@ class ActiveRecord extends DBO{
     }
     
     public function filterByTableField($field, $value, $type='%s') {
-        $this->_filterQuery[]=sprintf(''.$field.'="'.$type.'"', $this->secsql($value));
+        if ($type=='%u'):
+            $this->_filterQuery[]=sprintf(''.$field.'='.$type.'', $this->secsql($value));
+        else:
+            $this->_filterQuery[]=sprintf(''.$field.'="'.$type.'"', $this->secsql($value));
+        endif;
         return $this;
     }
     
