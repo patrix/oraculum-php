@@ -70,7 +70,9 @@ class ActiveRecord extends DBO{
         $limit=(int)$limit;
         $offset=(int)$offset;
         $query='SELECT * FROM '.$this->_tableName;
-        $query.=' WHERE '.implode(' AND ', $this->_filterQuery);
+        if (sizeof($this->_filterQuery)>0):
+            $query.=' WHERE '.implode(' AND ', $this->_filterQuery);
+        endif;
         if (!is_null($orderby)):
             $query.=' ORDER BY '.$orderby.' '.$order;
         endif;
