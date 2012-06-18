@@ -1,5 +1,5 @@
 <?php
-  class Oraculum_Forms {
+  class Oraculum_Dataform {
     private $_method='post';
     private $_action=NULL;
     private $_legend=NULL;
