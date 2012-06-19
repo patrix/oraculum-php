@@ -16,6 +16,8 @@
     private $_deletelabel='Delete';
     private $_adicionalactionhtml='';
     private $_norecordsfound='No Records Found';
+    private $_fields=array();
+    private $_headers=array();
     
     public function __construct($table=array()) {
       $this->_table=$table;
@@ -31,11 +33,19 @@
               $this->_grid.='<table class="'.$this->_tableclass.'">';
               $this->_grid.='<thead>';
               $this->_grid.='<tr>';
-              foreach ($reg as $field=>$value):          
-                $this->_grid.='<th>';
-                $this->_grid.=ucwords($field);
-                $this->_grid.='</th>';
-              endforeach;
+              if (sizeof($this->_headers)>0):
+                  foreach ($this->_headers as $header):          
+                    $this->_grid.='<th>';
+                    $this->_grid.=$header;
+                    $this->_grid.='</th>';
+                  endforeach;
+              else:
+                  foreach ($reg as $field=>$value):          
+                    $this->_grid.='<th>';
+                    $this->_grid.=ucwords($field);
+                    $this->_grid.='</th>';
+                  endforeach;
+              endif;
               if ($this->_showactions):
                 $this->_grid.='<th>';
                 $this->_grid.=$this->_actionstitle;
@@ -46,12 +56,21 @@
               $this->_grid.='<tbody>';
             endif;
             $this->_grid.='<tr>';
-            foreach ($reg as $field=>$value):
-                $id=(is_null($id))?$value:$id;
-                $this->_grid.='<td>';
-                $this->_grid.=$value;
-                $this->_grid.='</td>';
-            endforeach;
+            
+            if (sizeof($this->_fields)>0):
+                foreach ($this->_fields as $field):
+                    $this->_grid.='<td>';
+                    $this->_grid.=$reg[$field];
+                    $this->_grid.='</td>';
+                endforeach;
+            else:
+                foreach ($reg as $field=>$value):
+                    $id=(is_null($id))?$value:$id;
+                    $this->_grid.='<td>';
+                    $this->_grid.=$value;
+                    $this->_grid.='</td>';
+                endforeach;
+            endif;
             if ($this->_showactions):
               $this->_grid.='<td>';
               if (in_array('update', $this->_actions))
@@ -103,5 +122,14 @@
     }
     public function setAdictionalActionHTML($html) {
       $this->_adicionalactionhtml=$html;
+    }
+    public function setShowActions($showactions) {
+      $this->_showactions=(bool)$showactions;
+    }
+    public function setHeaders($headers) {
+      $this->_headers=$headers;
+    }
+    public function setFields($fields) {
+      $this->_fields=$fields;
     }
   }
