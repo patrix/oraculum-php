@@ -204,4 +204,24 @@ class Oraculum_Text {
             return NULL;
         }
     }
+    public static function mascara($string, $mascara=NULL) {
+        if (!is_null($mascara)):
+            $result='';
+            $k=0;
+            for($i=0;$i<=strlen($mascara)-1;$i++):
+                if($mascara[$i]=='#'):
+                    if(isset($string[$k])):
+                        $result.=$string[$k++];
+                    endif;
+                else:
+                    if(isset($mascara[$i])):
+                        $result.=$mascara[$i];
+                    endif;
+                endif;
+            endfor;
+            return $result;
+        else:
+            throw new Exception('[Erro CGT210] Mascara nao informada');
+        endif;
+    }
 }
