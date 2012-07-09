@@ -82,7 +82,7 @@ class ActiveRecord extends DBO{
                 $query.=' OFFSET '.$offset;
             endif;
         endif;
-        $rows=$this->execSQL($query);
+        $rows=$this->execSQL($query, TRUE, TRUE);
         return $this->fetch($rows);
     }
     
@@ -199,13 +199,16 @@ class ActiveRecord extends DBO{
         elseif (stripos($name, 'filterBy')!==FALSE):
             $field=strtolower(str_replace('filterBy', '',$name));
             if (isset($values[0])):
-                if (($values[0]!='')&&($values[0]!=0)):
+                if (!is_null($values[0])):
+                    alert($values[0]);
                     $value=(isset($values[0]))?$values[0]:NULL;
                     $type=(isset($values[1]))?$values[1]:'%s';
                     return $this->filterByTableField($field, $value, $type);
                 else:
                     return $this;
                 endif;
+            else:
+              return $this;
             endif;
         endif; 
     }
