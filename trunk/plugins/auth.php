@@ -171,16 +171,18 @@
                 $getcryptfield='getBy'.ucwords($this->_cryptkeyfield);
                 $keyfield=$this->_keyfield;
                 $obj=$this->_dbobj;
-                $register=$obj->$getcryptfield($this->_cryptkey);
-                if (sizeof($register)==1) {
+                $this->_register=$obj->$getcryptfield($this->_cryptkey);
+                if (sizeof($this->_register)==1) {
+				
+                    $this->_key=$this->_register->$keyfield;
                     $key=Oraculum_Crypt::strdcrypt($this->_cryptkey);
                     $key=explode('::', $key);
                     $time=$key[0];
                     $timeout=$key[2];
                     $auth=(time()<$time+$timeout);
                     if (($auth)&&($clearkey)){
-                        $register->$cryptfield=NULL;
-                        $register->save();
+                        $this->_register->$cryptfield=NULL;
+                        $this->_register->save();
                     }
                     return $auth;
                 } else {

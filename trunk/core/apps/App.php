@@ -5,7 +5,7 @@
 		private $_content=NULL;
 		private $_Views=NULL;
 		private static $_requestClass;
-
+		
 		public static function LoadView() {
 			Oraculum::Load('Views');
 			return new Oraculum_Views();
@@ -63,5 +63,15 @@
 		public function FrontController() {
 			Oraculum::Load('FrontController');
 			return new Oraculum_FrontController();
+		}
+		
+		public static function checkDebug() {
+			if((defined('OF_DEBUG'))&&(OF_DEBUG)):
+				error_reporting(E_ALL|E_STRICT);
+				ini_set('display_errors', TRUE);
+				Oraculum::Load('Exceptions');
+			else:
+				ini_set('display_errors', FALSE);
+			endif;
 		}
 	}
