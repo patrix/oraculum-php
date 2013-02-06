@@ -4,5 +4,6 @@
 	{
             public function __construct(){
                 header('X-Powered-By: Oraculum PHP Framework');
+				Oraculum_App::checkDebug();
             }
 	}
