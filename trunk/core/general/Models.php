@@ -41,12 +41,15 @@ class Oraculum_Models
             }
             $this->_model=$model;
         }
-        if (!isset(self::$connection)) {
+        if ((!isset(self::$connection))||(!is_null(self::$connection)))  {
             $this->PDO();
         }
         return $this;
     }
 
+    public static function CloseModel() {
+       self::$connection = NULL;
+    }
     public function SaveModel($table='all', $debug=TRUE) {
         $table=strtolower($table);
         if ($table=='all') {
