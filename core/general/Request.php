@@ -29,7 +29,7 @@ class Oraculum_Request
       $valor=$_POST[$indice];
       if ($tipo!='h') {
         $valor=strip_tags($valor);
-        $valor=htmlentities($valor);
+        $valor=htmlentities($valor, ENT_SUBSTITUTE, 'ISO-8859-1');
       } else if ($tipo=='n') {
       	$valor=floor($valor);
 		if ($valor==0) {
@@ -51,7 +51,7 @@ class Oraculum_Request
       $valor=null;
     }
     $valor=strip_tags($valor);
-    $valor=htmlentities($valor);
+    $valor=htmlentities($valor, ENT_SUBSTITUTE, 'ISO-8859-1');
     $valor=addslashes($valor);
     if ($tipo=='n') {
       $valor=floor($valor);
