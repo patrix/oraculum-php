@@ -164,14 +164,7 @@ class Oraculum_Models
         }
         return $this;
     }
-    
-    /*
-     * This function was changed to LoadDynamicModelClass cause the old name was wrong
-     */
-    public function LoadDinamicModelClass($model=NULL, $key='id') {
-        return $this->LoadDynamicModelClass($model, $key);
-    }
-    
+
     public function PDO()
     {
         if (extension_loaded('pdo')) {
