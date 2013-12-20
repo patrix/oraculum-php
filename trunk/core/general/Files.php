@@ -244,47 +244,4 @@ class Oraculum_Files
   	$arquivo=explode('.', $arquivo);
   	return end($arquivo);
   }
-
-  // Funcao de Inclusao de Arquivos com short_tags desabilitada
-  public static function load($arquivo,$return=false)
-  {
-    /*
-    *  IMPORTANTE:
-    *    Funcao para substituir includes no futuro, para que o framework
-    *    reescreva short_tags, assim como o Code Igniter, se essas estiverem
-    *    desativadas. (a funcao teve base na mesma funcao do Code Igniter !Obs)
-    *    Apenas falta alguns ajustes para trabalhar com as variaveis externas da
-    *    funcao (global $OUT);
-    *
-    *    Vale lembrar que em alguma versao futura do PHP, short_tags nao
-    *    deverao mais funcionar!
-    *
-    *    !Obs.:
-    *    !Arquivo: ci/resource_patch/system/libraries/Loader.php v1.0
-    *    !Ideia original:
-    *    http://www.codeigniter.com.br/manual/general/alternative_php.html
-    *
-    */
-    $arquivo=dirname(__FILE__).'/../'.$arquivo;
-    $level=ob_get_level();
-    ob_start();
-    if ((bool) @ini_get('short_open_tag')=== FALSE) {
-      echo eval('?>'.preg_replace("/;*\s*\?>/", "; ?>",
-      str_replace('<?=', '<?php echo ', file_get_contents($arquivo))).'<?php ');
-    } else {
-      include($arquivo);
-    }
-    if ($return===TRUE) {
-      $buffer=ob_get_contents();
-      @ob_end_clean();
-      return $buffer;
-    }
-    if (ob_get_level()>$level+1) {
-      ob_end_flush();
-    } else {
-      global $out;
-      $out->set_output(ob_get_contents());
-      @ob_end_clean();
-    }
-  }
 }
