@@ -1,19 +1,16 @@
 <?php
-	class Oraculum_Register
-	{
+	class Oraculum_Register {
 		private $_vars=array();
 		private static $_instance=NULL;
 
-		public static function getInstance()
-		{
-			if (is_null(self::$_instance)) {
+		public static function getInstance() {
+			if(is_null(self::$_instance)):
 				self::setInstance(new Oraculum_Register);
-			}
+			endif;
 			return self::$_instance;
 		}
 
-		public static function setInstance(Oraculum_Register $instance)
-		{
+		public static function setInstance(Oraculum_Register $instance) {
 			self::$_instance=$instance;
 		}
     
@@ -23,19 +20,20 @@
 		}
 
 		public static function get($id) {
-        		$instance=self::getInstance();
-        		if (isset($instance->_vars[$id])) {
+			$instance=self::getInstance();
+			if (isset($instance->_vars[$id])):
 				return $instance->_vars[$id];
-        		} else {
-	        		return NULL;
-        		}
+			else:
+				return NULL;
+			endif;
 		}
+		
 		public static function getVars() {
-        		$instance=self::getInstance();
-        		if (isset($instance->_vars)) {
+			$instance=self::getInstance();
+			if (isset($instance->_vars)):
 				return $instance->_vars;
-        		} else {
-	        		return NULL;
-        		}
+			else:
+				return NULL;
+			endif;
 		}
 	}
