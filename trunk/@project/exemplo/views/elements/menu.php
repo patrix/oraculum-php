@@ -1,4 +1,4 @@
-        <div class="navbar" style="position:fixed; width:100%;">
+        <div class="navbar" style="width:100%;">
             <div class="navbar-inner">
                 <div class="container">
                     <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">

@@ -14,26 +14,24 @@
  *
  */
 
-class Oraculum_Security
-{
-    public function clearSqlInject()
-    {
-        if (!get_magic_quotes_gpc()) {
-            if (count($_GET)>0) {
-                foreach ($_GET as $k=>$v) {
-                    $_GET[$k]=mysql_real_escape_string(strip_tags($v));
-                }
-            }
-            if (count($_POST)>0) {
-                foreach ($_POST as $k=>$v) {
-                    $_POST[$k]=mysql_real_escape_string(strip_tags($v));
-                }
-            }
-            if (count($_REQUEST)>0) {
-                foreach ($_REQUEST as $k=>$v) {
-                    $_REQUEST[$k]=mysql_real_escape_string(strip_tags($v));
-                }
-            }
-        }
-    }
-}
+	class Oraculum_Security {
+		public function clearSqlInject() {
+			if (!get_magic_quotes_gpc()):
+				if (count($_GET)>0):
+					foreach ($_GET as $k=>$v):
+						$_GET[$k]=mysql_real_escape_string(strip_tags($v));
+					endforeach;
+				endif;
+				if (count($_POST)>0):
+					foreach ($_POST as $k=>$v):
+						$_POST[$k]=mysql_real_escape_string(strip_tags($v));
+					endforeach;
+				endif;
+				if (count($_REQUEST)>0):
+					foreach ($_REQUEST as $k=>$v):
+						$_REQUEST[$k]=mysql_real_escape_string(strip_tags($v));
+					endforeach;
+				endif;
+			endif;
+		}
+	}
