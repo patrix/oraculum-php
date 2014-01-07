@@ -17,7 +17,3 @@
                 Um elemento pode ser chamado dentro de outro elemento
 	*/
 	Oraculum_Views::LoadElement('menu');
-?>
-			<a href="http://oraculumframework.org/" target="_blank">
-				<img src="<?php echo URL; ?>public/img/oraculum.jpg" alt="Oraculum Framework" title="Oraculum" id="logo" />
-			</a>
