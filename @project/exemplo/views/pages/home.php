@@ -18,6 +18,10 @@
 	*/
 	Oraculum_Register::set('titulo', 'Home');
 ?>
+<a href="http://oraculumframework.org/" target="_blank">
+	<img src="<?php echo URL; ?>public/img/oraculum.png" alt="Oraculum Framework" title="Oraculum" id="logo" />
+</a>
+<br />
 <div id="content">
     <em>Oraculum Framework :: <?php echo $_SERVER['SERVER_NAME']; ?></em>
 <p>
@@ -28,7 +32,6 @@
 	*/
 	Oraculum::Load('Text');
 ?>
-
 <br />
 <?php echo Oraculum_Text::saudacao(); ?> nobre desenvolvedor!<br />
 Voc&ecirc; est&aacute; agora sendo apresentado a uma aplica&ccedil;&atilde;o modelo,
