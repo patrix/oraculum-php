@@ -72,9 +72,9 @@
 						return false;
 					endif;
 					/*$data=trim($data);*/
-					if (sizeof($data)==3) {
-						if ($data['2']>$data['0']):
-							if ($data['0']>12):
+					if(sizeof($data)==3):
+						if($data['2']>$data['0']):
+							if($data['0']>12):
 								$ano=$data['2'];
 								$mes=$data['1'];
 								$dia=$data['0'];

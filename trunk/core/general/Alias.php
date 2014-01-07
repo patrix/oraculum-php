@@ -46,6 +46,8 @@
 				 **********************************/
 				  Oraculum_Alias::AddAlias('strcrypt', 'Oraculum_Crypt::strcrypt');
 				  Oraculum_Alias::AddAlias('strdcrypt', 'Oraculum_Crypt::strdcrypt');
+				  Oraculum_Alias::AddAlias('blowfish', 'Oraculum_Crypt::blowfish');
+				  Oraculum_Alias::AddAlias('blowfishcheck', 'Oraculum_Crypt::blowfishcheck');
 			endif;
 			if (($class=='HTTP')||($class=='All')):
 				Oraculum::Load('HTTP');
@@ -70,7 +72,7 @@
 				/**********************************
 				 * Tratamento de Views
 				 **********************************/
-				  Oraculum_Alias::AddAlias('layout', 'Oraculum_Views::layout');
+
 			endif;
 			if (($class=='Text')||($class=='All')):
 				Oraculum::Load('Text');
@@ -93,7 +95,7 @@
 				 * Tratamento de inclusao de arquvos
 				 **********************************/
 				  Oraculum_Alias::AddAlias('inc', 'Oraculum_Files::inc');
-				  Oraculum_Alias::AddAlias('load', 'Oraculum_Files::load');
+
 			endif;
 			if(($class=='Logs')||($class=='All')):
 				Oraculum::Load('Logs');

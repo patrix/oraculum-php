@@ -55,7 +55,7 @@ class Oraculum_Models
         $table=strtolower($table);
         if($table=='all'):
             $tables=self::$connection->query('SHOW TABLES')->fetchAll();
-            foreach ($tables as $table) {
+            foreach($tables as $table):
                 $dtodir=MODEL_DIR.'/dto/';
                 $daodir=MODEL_DIR.'/dao/';
                 if(!file_exists($dtodir)):
@@ -316,7 +316,7 @@ class Oraculum_Models
             } catch (PDOException $e) {
                 throw new Exception('PDO Connection Error: '.$e->getMessage());
             }
-        }
+        endif;
     }
 
     public function GenerateDAO($table='all', $create=TRUE) {
