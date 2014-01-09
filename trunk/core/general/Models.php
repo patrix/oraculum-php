@@ -18,7 +18,7 @@ class Oraculum_Models
         endif;
         Oraculum::Load('DBO');
         Oraculum::Load('ActiveRecord');
-        return $this->LoadModel($model);
+        return (!is_null($model))?$this->LoadModel($model):$this;
     }
 
     public function LoadModel($model=NULL) {
@@ -173,7 +173,6 @@ class Oraculum_Models
                 try {
                     self::$connection=new PDO($this->_dsn, $this->_user, (!$this->_pass?'':$this->_pass), $this->_driveroptions);
                     self::$connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                    //echo 'CONECTADO!!!';
                 } catch (PDOException $e) {
                     throw new Exception('PDO Connection Error: '.$e->getMessage());
                 }
@@ -537,6 +536,13 @@ class Oraculum_Models
 			throw new Exception ('[Erro CGM414] DSN nao informado');
 		else:
             $this->_dsn=$dsn;
+			$dsn=preg_split('[://|:|@|/]', $this->_dsn);
+			$this->_driver=strtolower($dsn[0]);
+			$this->_user=$dsn[1];
+			$this->_pass=$dsn[2];
+			$this->_host=$dsn[3];
+			$this->_database=$dsn[4];
+			$this->_driveroptions=isset($dsn[5])?$dsn[5]:NULL;
 		endif;
     }
 	
