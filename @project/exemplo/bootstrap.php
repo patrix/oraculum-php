@@ -1,11 +1,9 @@
 <?php
-    ini_set('display_errors',true);
     /*
-      Utilizar as linhas comentadas apenas em ambiente de desenvolvimento
-        error_reporting(E_ALL|E_STRICT);
-        ini_set('display_errors',true);
+      Utilizar OF_DEBUG true apenas em ambiente de desenvolvimento
+	  pois habilita a exibição de todos os erros e alertas (E_STRING)
     */
-	define('OF_DEBUG', true);
+	define('OF_DEBUG', false);
     define('DS', DIRECTORY_SEPARATOR);
     /*
         Definindo diretorio do framework ../libraries/OF/
@@ -18,27 +16,10 @@
     ini_set('include_path', PATH);
     date_default_timezone_set('America/Sao_Paulo');
     include('Oraculum.php');
-    Oraculum::Load('Models');
-    Oraculum::Load('DBO');
-    Oraculum::Load('ActiveRecord');
-    Oraculum::Load('Alias');
-    Oraculum::Load('Controls');
-    Oraculum::Load('Crypt');
-    Oraculum::Load('Exceptions');
-    Oraculum::Load('Files');
-    Oraculum::Load('FrontController');
-    Oraculum::Load('HTTP');
-    Oraculum::Load('Logs');
-    Oraculum::Load('Plugins');
     Oraculum::Load('Register');
     Oraculum::Load('Request');
-    Oraculum::Load('Routes');
-    Oraculum::Load('Security');
-    Oraculum::Load('Test');
-    Oraculum::Load('Text');
-    Oraculum::Load('Validate');
-    Oraculum::Load('Views');
-	Oraculum_Alias::LoadAlias('All');
+    Oraculum::Load('Alias');
+	Oraculum_Alias::LoadAlias('Request');
     /*
         Utilizar apenas em ambiente de desenvolvimento
         Oraculum::Load('Exceptions');

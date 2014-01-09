@@ -13,6 +13,9 @@
 				  <li>
 					  <a href="<?php echo URL; ?>primeiros-passos.php" id="lnk-active-record">Banco de Dados</a>
 				  </li>
+				  <li>
+					  <a href="<?php echo URL; ?>primeiros-passos.php" id="lnk-gerador-de-codigos">Gerador de C&oacute;digos</a>
+				  </li>
 				  <li class="dropdown">
 					  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Suporte <b class="caret"></b></a>
 					  <ul class="dropdown-menu">
