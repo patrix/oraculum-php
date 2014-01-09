@@ -4,7 +4,6 @@
 			if(is_null($lib)):
 				throw new Exception('[Erro RO6] Tipo de Container nao informado');
 			else:
-				$lib=strtolower($lib);
 				$libfile='core/apps/'.$lib.'.php';
 				if(file_exists(PATH.$libfile)):
 					include_once($libfile);
