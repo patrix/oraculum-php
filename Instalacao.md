@@ -1,0 +1,37 @@
+Para obter o **Oraculum Framework** basta realizar o download da última versão estável disponível no site do projeto.
+Atualmente o mesmo está disponível no endereço http://code.google.com/p/oraculum-php/.
+
+Os requisitos para instalar e utilizar o **Oraculum Framework** são os seguintes:
+  * Servidor Web preferencialmente Apache 2 ou superior.
+  * PHP5 ou superior.
+  * Recomenda-se habilitar a opção de reescrita de URL no Apache, porém, os testes com a mesma desabilitada foram bem sucedidos.
+  * Sistema Operacional Windows ou Linux. Ainda não foram realizados testes em outras plataformas como Mac OS.
+
+Após obter o arquivo, descompacte-o com um programa descompactador na pasta de publicações (_document\_root_) do servidor Web. Acesse o endereço de acesso do servidor web no seu navegador, seguido do nome da pasta, ou subpastas onde o framework foi incluído dentro da pasta de publicações.
+
+Se aparecer uma tela informando que o **Oraculum Framework** foi inicializado com sucesso ocorreu tudo certo, caso contrário, procure verificar se você descompactou o framework na pasta correta, e que está acessando o endereço correto.
+
+Se ocorreu tudo corretamente, você pode acessar o sistema gerador de códigos, e gerar a estrutura básica do seu sistema, baseando-se em algum banco de dados que você deseje utilizar.
+
+## Configurações ##
+As configurações básicas que devem ser realizadas são as seguintes
+  * Alterar o parâmetro RewriteBase do arquivo **.htaccess** para a URL que é chamada
+```
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  # Determina a base de reescrita
+  RewriteBase /
+  # Verifica se a url nao corresponde a um arquivo existente
+  RewriteCond %{REQUEST_FILENAME} !-f
+  # Verifica se a url nao corresponde a um diretorio existente
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule .([a-zA-Z0-9]+)?$ index.php
+</IfModule>
+```
+**Exemplo:**
+Se para acessar o seu site você digita _http://localhost/projetos/teste/_ na barra de endereços RewriteBase será _/projetos/teste/_
+
+  * Se você possui uma conexão com banco de dados, copie o arquivo _/models/doctrine/config.php_ para _/models/doctrine/**NOME-DO-PROJETO**.php_
+Altere a linha 46 deste arquivo criado, com as configurações de conexão à sua base de dados.
+
+  * Se você deseja criar várias configurações personalizadas para ambientes de desenvolvimento, publicação, testes, etc... Você pode utilizar o conceito de _Workspaces_. Acesse o diretório _/apps/default/config/workspaces_, e utilize o _arquivo.php_ como base para os novos Workspaces, dentro do mesmo você poderá fazer alterações específicas como por exemplo para a exibição de erros. Após isto, altere o arquivo _list.php_ para chamar determinado arquivo de acordo com o e-mail configurado como administrador no arquivo php.ini. A variável $
